@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/mine.css">
+{% endblock %}
+
+{% block content %}
+<div class="bg layui-anim layui-anim-upbit"></div>
+<fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
+    <legend>Tasks Bar - Mine</legend>
+</fieldset>
+<div class="main layui-anim layui-anim-upbit">
+    <div class="layui-row main-body">
+        <div class="layui-col-xs6 layui-col-md4">
+            <div class="left-index">
+                <p>Personal</p>
+                <div id="push-one"></div>
+                <p>Organization</p>
+                <div id="push-two"></div>
+                <p>Option</p>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-md8">
+            <div class="right-index-body">
+                <div class="right-index-personal">
+                    <table>
+                        <colgroup>
+                            <col width=130px>
+                        </colgroup>
+                        <tr>
+                            <td>NAME:</td>
+                            <td>{{ current_user.user_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>ID:</td>
+                            <td>{{ current_user.id }}</td>
+                        </tr>
+                        <tr>
+                            <td>TYPE:</td>
+                            <td>{{ current_user.user_type }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="right-index-org">
+                    <table>
+                        <colgroup>
+                            <col width=130px>
+                        </colgroup>
+                        <tr>
+                            <td>ORG-NAME:</td>
+                            <td>{{ current_user.org_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>ORG-ID:</td>
+                            <td>{{ current_user.org_id }}</td>
+                        </tr>
+                        <tr>
+                            <td>ORG-NOTICE:</td>
+                            <td>{{ current_user.org_notice }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="right-index-option">
+                    <table>
+                        <colgroup>
+                            <col width=130px>
+                        </colgroup>
+                        <tr>
+                            <td>EDIT-INFO:</td>
+                            <td>
+                                <button type="button" class="layui-btn layui-bg-black">
+                                    <i class="layui-icon layui-icon-edit"></i>
+                                </button>
+                                // Contact to 1132756648@qq.com
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SEND-TASK:</td>
+                            <td>
+                                <button onclick="window.open('/new_task');" type="button" class="layui-btn layui-bg-black">
+                                    <i class="layui-icon layui-icon-list"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SIGN-OUT:</td>
+                            <td>
+                                <button onclick="window.open('/logout');" type="button" class="layui-btn layui-bg-black">
+                                    <i class="layui-icon layui-icon-logout"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% for message in get_flashed_messages() %}
+            <div class="flash layui-elem-quote" style="margin: 480px 300px;">{{ message }}</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    document.getElementById("mine-nav").setAttribute('class','layui-nav-item layui-this')
+</script>
+{% endblock %}

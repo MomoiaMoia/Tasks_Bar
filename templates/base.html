@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Tasks Bar -- Upload Your Task</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="/static/css/layui.css">
+  <link rel="stylesheet" href="/static/css/style/base.css">
+{% block css_style %}{% endblock %}
+
+</head>
+<body>
+  <!-- 导航栏 -->
+  <ul class="layui-nav" lay-filter="">
+    <div class="nav-bar">
+      <li class="layui-nav-item" id="upload-nav"><a href="/upload">Upload</a></li>
+      <li class="layui-nav-item" id="check-nav"><a href="/check">Check</a></li>
+      <li class="layui-nav-item" id="index-nav"><a href="/index">Tasks Bar</a></li>
+      <li class="layui-nav-item" id="mine-nav"><a href="/mine">Mine</a></li>
+      <li class="layui-nav-item" id="doc-nav"><a href="/doc">Document</a></li>
+    </div>
+  </ul>
+{% block content%}{% endblock %}
+
+
+{% block footer %}
+<!-- 页脚 -->
+<div class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-footer footer-index">
+      <!-- 底部固定区域 -->
+      <span class="layui-breadcrumb">
+        <a href="#">&copy; 2020 花茶花茶花</a>
+        <a href="https://github.com/UesugiSaori" target="_new">Github</a>
+        <a href="">About Us</a>
+      </span>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<script src="/static/layui.js"></script>   
+<script>
+  //注意：导航 依赖 element 模块，否则无法进行功能性操作
+  layui.use('element', function(){
+    var element = layui.element;
+    
+    //…
+  });
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

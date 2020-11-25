@@ -1,0 +1,44 @@
+/* index_page */
+.header {
+    position: relative;
+    text-align: center;
+    height: 400px;
+    background: url('/static/images/header.png') no-repeat;
+    background-size: 100% auto;
+    z-index: -1;
+}
+
+.header > h1 {
+    padding: 135px 0 6px;
+    font-size: 90px;
+    color: #f0f0f0;
+}
+
+.header > h2 {
+    font-size: 30px;
+    color: #f0f0f0;
+}
+
+.index-msg {
+    text-align: center;
+    position: relative;
+    margin: 20px 80px;
+    font-size: 30px;
+}
+
+.index-msg > div * {
+    color: #393D49;
+    text-align: left;
+    position: relative;
+    font-size: 17px;
+}
+
+.index-nav {
+    height: 320px;
+    margin: 0 auto;
+}
+
+.layui-card:last-child {
+    margin-bottom: 0;
+    width: 480px;
+}

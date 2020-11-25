@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/upload.css">
+{% endblock %}
+
+{% block content %}
+<div class="bg layui-anim layui-anim-upbit"></div>
+  <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
+    <legend class="title-one">Tasks Bar - Upload</legend>
+  </fieldset>
+
+<div class="main">
+          <!-- 上传提示 -->
+          <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-upbit upload-tips">
+            <legend class="title-two">Format - Tips</legend>
+                <div class="layui-field-box" style="margin-left: 10px;line-height: 25px;">
+                    <p>1. Please make sure that the file you upload is of type [.zip /.rar /.7z]</p>
+                    <p>2. Please check the name of the file to make sure your ID is included.</p>
+                    <p>3. If you don't have your own ID, please send email to 1132756648@qq.com.</p>
+                </div>
+        </fieldset>
+          <!-- 上传元素 -->
+  <div class="layui-anim layui-anim-upbit form-contain">
+    <form class="layui-form upload-form layui-anim-upbit" method="POST" enctype="multipart/form-data">
+      {{ form.csrf_token }}
+      <input id="upload_file" class="layui-upload-drag" name="upload_file" required="" type="file" accept="">
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-bg-black" style="text-align: center;">Select task</label>
+        <div class="layui-input-block">
+          {{ form.select_task }}
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-bg-black" style="text-align: center;">Messages</label>
+        <div class="layui-input-block">
+          <input id="msg_task" name="msg_task" required="" type="text" required  lay-verify="required" placeholder="Here you can write a note about the file" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block" style="margin-left: 165px;">
+          {{ form.file_submit(class="layui-btn layui-bg-black")}}
+          <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class="flash layui-elem-quote" style="margin: 20px 260px;">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+  document.getElementById("upload-nav").setAttribute('class','layui-nav-item layui-this')
+</script>
+<script>
+  //Demo
+  layui.use('form', function(){
+    var form = layui.form;
+    
+    //监听提交
+    form.on('submit(formDemo)', function(data){
+      layer.msg(JSON.stringify(data.field));
+      return false;
+    });
+  });
+</script>
+{% endblock %}

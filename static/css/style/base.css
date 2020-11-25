@@ -1,0 +1,60 @@
+/* base_page */
+html {
+    background-color: rgb(245, 245, 245);
+}
+
+body {
+    font-family: Bahnschrift Light;
+}
+
+.nav-bar {
+    text-align: center;
+}
+
+.nav-bar * {
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: 15px;
+}
+
+.footer-index {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    margin: 0px auto;
+    bottom: 10px;
+}
+
+.layui-layout-admin .layui-footer {
+    position: fixed;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 0px;
+    background-color: #393D49;
+}
+
+.layui-breadcrumb a {
+    color: #e1e1e1fc!important;
+}
+
+small {
+    color: #ff0000;
+    font-size: 13px;
+    margin-left: -100px;
+}
+
+.flash {
+    position: absolute;
+    font-size: 15px;
+    margin: 300px 593px;
+    min-width: 470px;
+    line-height: 7px;
+}
+
+.layui-elem-quote {
+    border-left: 5px solid #393D49;
+    background-color: #ffffff;
+}

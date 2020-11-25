@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/check.css">
+{% endblock %}
+
+{% block content %}
+<div>
+  <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
+    <legend>Tasks Bar - Check</legend>
+  </fieldset>
+  <span class="layui-breadcrumb layui-anim layui-anim-fadein check-index">
+    <a href="#check">Check</a>
+    <a href="#info">Info</a>
+    <a href="#note">Note</a>
+  </span>
+  <div class="main layui-anim layui-anim-upbit">
+    <a name="check">Check</a>
+    <div class="check-block">
+      <p style="margin-top: 5px;">ID: {{ current_user.id }}</p>
+      <p>ORG-ID: {{ current_user.org_id }}</p>
+      <div style="width:auto; height:500px; overflow:scroll;">
+        <table class="layui-table check-table">
+          <thead>
+            <tr>
+              <th class="table-index">Name</th>
+              <th class="table-index">ID</th>
+              <th class="table-index">ORG-ID</th>
+              <th>11/19/.20</th>
+              <th>11/20/.20</th>
+              <th>11/21/.20</th>
+              <th>11/22/.20</th>
+              <th>11/23/.20</th>
+              <th>11/24/.20</th>
+              <th>11/25/.20</th>
+              <th>11/26/.20</th>
+              <th>11/27/.20</th>
+              <th>11/28/.20</th>
+              <th>11/29/.20</th>
+              <th>11/30/.20</th>
+              <th>12/01/.20</th>
+              <th>12/02/.20</th>
+              <th>12/03/.20</th>
+              <th>12/04/.20</th>
+              <th>12/05/.20</th>
+              <th>12/06/.20</th>
+              <th>12/07/.20</th>
+              <th>12/08/.20</th>
+            </tr> 
+          </thead>
+          <tbody>
+            <tr>
+              <td>茶花茶</td>
+              <td>1729130135</td>
+              <td>01-19-01</td>
+              <td>Finished</td>
+            </tr>
+            <tr>
+              <td>上杉纱织</td>
+              <td>1729130136</td>
+              <td>01-19-01</td>
+              <td>Unfinished</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+      <br>
+      <br>
+      <br>
+    </div>
+    <a name="info">Info</a>
+    <div class="info-block">
+      <p style="margin-top: 5px;">When your supervisor sends a new announcement, you will get new information and it will be displayed here.</p>
+      <br>
+      <div class="layui-card">
+        <div class="layui-card-header">
+          <p>花茶花茶花</p>
+        </div>
+        <div class="layui-card-body">
+          <p>Hi! We must add more functions to this program! Let's do that!</p>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">
+          <p>上杉纱织</p>
+        </div>
+        <div class="layui-card-body">
+          <p>We have to speed up development!</p>
+        </div>
+      </div>
+      <br>
+      <br>
+    </div>
+    <a name="note">Note</a>
+    <div class="note-block" style="margin-bottom: 200px;">
+      <p style="margin: 5px auto 10px;">The content here will be Shared with users who use the same organization ID, and you can take notes or share ideas here.</p>
+      <blockquote class="layui-elem-quote">酸柠花茶: Do it! Just do it!</blockquote>
+      <blockquote class="layui-elem-quote">琉柳: I'm going to make the back-end program.</blockquote>
+      <blockquote class="layui-elem-quote">Flavor: 😃</blockquote>
+      <form class="layui-form upload-form layui-anim-upbit" style="margin-top: 17px;" action="">
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label layui-bg-black" style="text-align: center;">Notes</label>
+            <div class="layui-input-block">
+              <textarea name="desc" placeholder="Taking notes, or talking to your colleagues." class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <button id="upload-submit" class="layui-btn layui-bg-black" lay-submit lay-filter="formDemo">Submit</button>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById("check-nav").setAttribute('class','layui-nav-item layui-this')
+</script>
+<script>
+  //Demo
+  layui.use('form', function(){
+    var form = layui.form;
+    
+    //监听提交
+    form.on('submit(formDemo)', function(data){
+      layer.msg(JSON.stringify(data.field));
+      return false;
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/doc.css">
+{% endblock %}
+
+{% block content %}
+<fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
+    <legend>Tasks Bar - Document</legend>
+</fieldset>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    document.getElementById("doc-nav").setAttribute('class','layui-nav-item layui-this')
+</script>
+{% endblock %}

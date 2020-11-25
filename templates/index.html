@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/index.css">
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Tasks Bar</h1>
+    <h2>A new way to collect tasks</h2>
+</div>
+<div class="layui-row layui-anim layui-anim-upbit index-msg">
+    <div class="layui-col-md4">
+            <div class="layui-card index-nav">
+            <div class="layui-card-header layui-bg-black">
+                <p style="color: aliceblue; text-align:center;">Introduction</p>
+            </div>
+            <div class="layui-card-body">
+                <p>1. This is a new way to collect tasks flies.</p> 
+                <p>2. If you are a manager, you can submit a new task to the staff who are in your team (need to use your organization ID).</p>
+                <p>3. If you are a staff member, you can fill in your organization ID into your own information, then you will see what task files you should upload.</p>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-card index-nav">
+            <div class="layui-card-header layui-bg-black">
+                <p style="color: aliceblue; text-align:center;">Get Start</p>
+            </div>
+            <div class="layui-card-body">
+                <p>1. Contact 1132756648@qq.com to get your own ID or your organization ID or get both.</p>
+                <p>2. Submit a new task or wait for supervisor to send the task to you.</p>
+                <p>3. After you finish step 1 and  2, you can go to page [Check] to recheck.</p>
+                <p>4. Enjoy :)</p>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-card index-nav">
+            <div class="layui-card-header layui-bg-black">
+                <p style="color: aliceblue; text-align:center;">Support</p>
+            </div>
+            <div class="layui-card-body">
+                <p>Development by 花茶花茶花</p>
+                <a href="mailto:1132756648@qq.com?subject=Feedback">Contact: 1132756648@qq.com</a>
+                <p>Document: <a href="/doc">Click here.</a></p>
+                <p>The product is still in development...</p>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById("index-nav").setAttribute('class','layui-nav-item layui-this')
+</script>
+{% endblock %}

@@ -1,0 +1,181 @@
+/* upload_page */
+.layui-elem-field legend {
+    margin: 170px 338px 0px;
+    padding: 0 10px;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.login {
+    text-align: center;
+}
+
+.login form {
+    position: relative;
+    margin: 20px auto;
+    width: 500px;
+}
+
+h1 {
+    padding: 200px 0 6px;
+    font-size: 90px;
+    color: #393D49;
+}
+
+h2 {
+    font-size: 30px;
+    color: #393D49;
+}
+
+h3 {
+    margin: 85px 0px 20px;
+    font-size: 30px;
+    color: #393D49;
+}
+
+.login label {
+    text-align: center;
+}
+
+.login button {
+    margin-top: 15px;
+}
+.layui-input-block {
+    margin-left: 0px;
+    min-height: 36px;
+}
+
+.layui-input, .layui-textarea {
+    width: 390px;
+}
+
+
+.layui-form-onswitch {
+    border-color: #393D49;
+    background-color: #393D49;
+}
+
+.layui-form-switch {
+    margin-right: 320px;
+}
+/* sendtask_page */
+.new-task {
+    margin: 0 auto;
+    width: 1150px;
+}
+
+.login p {
+    font-size: 20px;
+}
+
+.send-task-tips {
+    position: relative;
+    margin: 20px 200px;
+    text-align: left;
+    font-size: 17px;
+    width: 800px;
+}
+
+.send-task-tips p {
+    font-size: 16px;
+}
+
+.send-task-tips legend {
+    font-size: 22px;
+}
+
+.title-two {
+    margin-left: 0px!important;
+    padding: 0 10px!important;
+    font-size: 20px!important;
+    font-weight: 300!important;
+}
+
+.layui-input, .layui-select, .layui-textarea {
+    height: 35px;
+}
+
+.layui-form-label {
+    padding: 7px 15px;
+    width: 70px;
+}
+
+.task-form {
+    margin: 0px auto!important;
+}
+/* mine_page */
+.bg {
+    position: absolute;
+    height: 480px;
+    width: 700px;
+    background: url(/static/images/mine-bg.png) no-repeat;
+    background-size: 100% auto;
+    margin: 120px 0px 0px 860px;
+    z-index: -1;
+}
+
+.main {
+    margin: 0 auto;
+    width: 1150px;
+}
+
+.main-body {
+    margin: 55px 0px;
+}
+
+.layui-col-md4 {
+    width: 20%;
+}
+
+.layui-col-md8 {
+    width: 80%;
+}
+
+.left-index {
+    height: 450px;
+    width: 150px;
+    font-size: 20px;
+    padding-right: 30px;
+    border-right: 1.5px solid #bebebe!important;
+}
+
+#push-one {
+    height: 140px;
+}
+#push-two {
+    height: 140px;
+}
+#push-three {
+    height: 230px;
+}
+
+.right-index-body {
+    margin-top: -10px;
+    margin-left: 70px;
+    font-size: 17px;
+    line-height: 45px;    
+    column-width: 1000px;
+}
+
+.right-index-org {
+    margin-top: 30px;
+}
+
+.right-index-option {
+    margin-top: 30px;
+}
+
+.layui-btn {
+    height: 30px;
+    line-height: 28px;
+}
+
+.layui-btn .layui-icon {
+    margin-right: 0px;
+}
+
+.flash {
+    position: relative!important;
+    margin: 20px auto 0px;
+    max-width: 100px;
+}
