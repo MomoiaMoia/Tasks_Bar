@@ -27,6 +27,15 @@
     z-index: -1;
 }
 
+.upload-block {
+    margin: -10px auto 17px;
+    padding: 7px;
+    text-align: center;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #393D49;
+}
+
 .upload-tips {
     position: relative;
     margin: 20px 0px 0px 250px;
