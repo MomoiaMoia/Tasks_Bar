@@ -7,15 +7,15 @@
 {% block content %}
 <div>
   <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
-    <legend>Tasks Bar - Check</legend>
+    <legend>Tasks Bar - 审查</legend>
   </fieldset>
   <span class="layui-breadcrumb layui-anim layui-anim-fadein check-index">
-    <a href="#check">Check</a>
-    <a href="#info">Info</a>
-    <a href="#note">Note</a>
+    <a href="#check">审查</a>
+    <a href="#info">公告</a>
+    <a href="#note">笔记</a>
   </span>
   <div class="main layui-anim layui-anim-upbit">
-    <a name="check">Check</a>
+    <a name="check">审查</a>
     <div class="check-block">
       <p style="margin-top: 5px;">ID: {{ current_user.id }}</p>
       <p>ORG-ID: {{ current_user.org_id }}</p>
@@ -68,9 +68,9 @@
       <br>
       <br>
     </div>
-    <a name="info">Info</a>
+    <a name="info">公告</a>
     <div class="info-block">
-      <p style="margin-top: 5px;">When your supervisor sends a new announcement, you will get new information and it will be displayed here.</p>
+      <p style="margin-top: 5px;">当你所属组的管理员发送一个新的公告时,它将展示在这里</p>
       <br>
       <div class="layui-card">
         <div class="layui-card-header">
@@ -91,9 +91,9 @@
       <br>
       <br>
     </div>
-    <a name="note">Note</a>
+    <a name="note">笔记</a>
     <div class="note-block" style="margin-bottom: 200px;">
-      <p style="margin: 5px auto 10px;">The content here will be Shared with users who use the same organization ID, and you can take notes or share ideas here.</p>
+      <p style="margin: 5px auto 10px;">这里的内容将和与您使用了共同组织ID的用户共享，您可以在这里做笔记或分享想法</p>
       <blockquote class="layui-elem-quote">酸柠花茶: Do it! Just do it!</blockquote>
       <blockquote class="layui-elem-quote">琉柳: I'm going to make the back-end program.</blockquote>
       <blockquote class="layui-elem-quote">Flavor: 😃</blockquote>

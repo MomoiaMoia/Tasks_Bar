@@ -1,5 +1,3 @@
-from flask.helpers import flash
-from werkzeug.utils import redirect
 from user_login import User
 import pymysql
 
@@ -82,4 +80,15 @@ class DB_Conf():
             info = self.cursor.fetchall()
             return info
         except:
+            raise UserWarning
+
+    def reset_passwd(self,cursor,dbobj,user,new_password):
+        self.cursor = cursor
+        SQL = "UPDATE user_info SET user_pwd = %s  WHERE user_id = %s"
+        try:
+            self.cursor.execute(SQL,(new_password,user))
+            dbobj.commit()
+            return 'Reset password success.'
+        except:
+            dbobj.rollback()
             raise UserWarning

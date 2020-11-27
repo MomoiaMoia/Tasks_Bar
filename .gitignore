@@ -2,3 +2,6 @@
 /file_server
 /Database
 /__pycache__
+/Excel
+/templatesz_zh
+db_test.py

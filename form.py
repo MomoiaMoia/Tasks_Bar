@@ -4,7 +4,7 @@ from wtforms import StringField, PasswordField,SubmitField,BooleanField,DateFiel
 from wtforms.validators import DataRequired, Length
 
 class LoginForm(FlaskForm):
-    userid = StringField(validators=[DataRequired()], render_kw={'type':'text','placeholder':'Enter your ID or Organization ID','class':'layui-input','style':'width: 390px;'})
+    userid = StringField(validators=[DataRequired()], render_kw={'type':'text','placeholder':'Enter your ID','class':'layui-input','style':'width: 390px;'})
     passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter password','class':'layui-input','style':'width: 390px;'})
     switch = BooleanField(render_kw={'type':'checkbos','lay-skin':'switch'})
     submit = SubmitField('Login')
@@ -17,7 +17,7 @@ class NewTaskForm(FlaskForm):
 
 class UploadForm(FlaskForm):
     select_task = SelectField(validators=[DataRequired()])
-    upload_file = FileField(validators=[DataRequired(),FileAllowed(['zip','rar','7z'])])
+    upload_file = FileField(validators=[DataRequired(),FileAllowed(['zip','rar','7z','jpg','jpeg','png'])])
     msg_task = StringField(validators=[DataRequired()])
     file_submit = SubmitField('Upload')
 
@@ -25,3 +25,9 @@ class UploadForm(FlaskForm):
         self.task_list = task_list
         super(UploadForm,self).__init__(*arg,**kwargs)
         self.select_task.choices = [(task_info[1],task_info[0]) for task_info in self.task_list.items()]
+
+class ResetPasswdForm(FlaskForm):
+    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the old password','class':'layui-input','style':'width: 390px;'})
+    new_passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the new password','class':'layui-input','style':'width: 390px;'})
+    new_passwd_repeat = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Repeat the new password','class':'layui-input','style':'width: 390px;'})
+    submit = SubmitField('Reset')

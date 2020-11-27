@@ -14,35 +14,38 @@
     <div class="form-body"></div>
     <form class="layui-form" method="POST">
         <div class="layui-form-item">
-          <label class="layui-form-label layui-bg-black">账号</label>
+          <label class="layui-form-label layui-bg-black">旧密码</label>
           <div class="layui-input-block">
             {{ form.csrf_token }}
-            {{ form.userid }}
+            {{ form.passwd }}
             <div class="error" style="margin-left: -110px;">            
-              {% for message in form.userid.errors %}
+              {% for message in form.passwd.errors %}
                 <small class="error">{{ message }}</small><br>
               {% endfor %}
             </div>
           </div>
         </div>
         <div class="layui-form-item">
-          <label class="layui-form-label layui-bg-black">密码</label>
+          <label class="layui-form-label layui-bg-black">新密码</label>
           <div class="layui-input-inline">
-            {{ form.passwd }}
-            {% for message in form.passwd.errors %}
+            {{ form.new_passwd }}
+            {% for message in form.new_passwd.errors %}
               <small class="error">{{ message }}</small><br>
             {% endfor %}
           </div>
         </div>
         <div class="layui-form-item">
-          <label class="layui-form-label layui-bg-black">记住我</label>
-          <div class="layui-input-block">
-            <input type="checkbox" name="switch" lay-skin="switch">
-          </div>
+            <label class="layui-form-label layui-bg-black">重复新密码</label>
+            <div class="layui-input-inline">
+              {{ form.new_passwd_repeat }}
+              {% for message in form.new_passwd.errors %}
+                <small class="error">{{ message }}</small><br>
+              {% endfor %}
+            </div>
         </div>
         <div class="layui-form-item">
           <div class="layui-input-block">
-            <button class="layui-btn layui-bg-black" id="submit" name="submit" type="submit" value="Login">登录</button>
+            <button class="layui-btn layui-bg-black" id="submit" name="submit" type="submit" value="Login">重置</button>
           </div>
         </div>
       </form>

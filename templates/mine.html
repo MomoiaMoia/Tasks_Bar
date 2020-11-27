@@ -7,17 +7,17 @@
 {% block content %}
 <div class="bg layui-anim layui-anim-upbit"></div>
 <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
-    <legend>Tasks Bar - Mine</legend>
+    <legend>Tasks Bar - 我的</legend>
 </fieldset>
 <div class="main layui-anim layui-anim-upbit">
     <div class="layui-row main-body">
         <div class="layui-col-xs6 layui-col-md4">
             <div class="left-index">
-                <p>Personal</p>
+                <p>个人</p>
                 <div id="push-one"></div>
-                <p>Organization</p>
+                <p>组织</p>
                 <div id="push-two"></div>
-                <p>Option</p>
+                <p>选项</p>
             </div>
         </div>
         <div class="layui-col-xs12 layui-col-md8">
@@ -87,6 +87,14 @@
                             <td>
                                 <button onclick="window.open('/logout');" type="button" class="layui-btn layui-bg-black">
                                     <i class="layui-icon layui-icon-logout"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RESET-KEY:</td>
+                            <td>
+                                <button onclick="window.open('/reset');" type="button" class="layui-btn layui-bg-black">
+                                    <i class="layui-icon layui-icon-key"></i>
                                 </button>
                             </td>
                         </tr>
