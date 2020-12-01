@@ -28,7 +28,7 @@
                             <col width=130px>
                         </colgroup>
                         <tr>
-                            <td>NAME:</td>
+                            <td>姓名:</td>
                             <td>{{ current_user.user_name }}</td>
                         </tr>
                         <tr>
@@ -36,7 +36,7 @@
                             <td>{{ current_user.id }}</td>
                         </tr>
                         <tr>
-                            <td>TYPE:</td>
+                            <td>类型:</td>
                             <td>{{ current_user.user_type }}</td>
                         </tr>
                     </table>
@@ -47,15 +47,15 @@
                             <col width=130px>
                         </colgroup>
                         <tr>
-                            <td>ORG-NAME:</td>
+                            <td>组织名:</td>
                             <td>{{ current_user.org_name }}</td>
                         </tr>
                         <tr>
-                            <td>ORG-ID:</td>
+                            <td>组织ID:</td>
                             <td>{{ current_user.org_id }}</td>
                         </tr>
                         <tr>
-                            <td>ORG-NOTICE:</td>
+                            <td>组织备注:</td>
                             <td>{{ current_user.org_notice }}</td>
                         </tr>
                     </table>
@@ -66,7 +66,7 @@
                             <col width=130px>
                         </colgroup>
                         <tr>
-                            <td>EDIT-INFO:</td>
+                            <td>编辑信息:</td>
                             <td>
                                 <button type="button" class="layui-btn layui-bg-black">
                                     <i class="layui-icon layui-icon-edit"></i>
@@ -74,16 +74,18 @@
                                 // Contact to 1132756648@qq.com
                             </td>
                         </tr>
+                        {% if current_user.user_type == 'Manager' %}
                         <tr>
-                            <td>SEND-TASK:</td>
+                            <td>发布任务:</td>
                             <td>
                                 <button onclick="window.open('/new_task');" type="button" class="layui-btn layui-bg-black">
                                     <i class="layui-icon layui-icon-list"></i>
                                 </button>
                             </td>
                         </tr>
+                        {% endif %}
                         <tr>
-                            <td>SIGN-OUT:</td>
+                            <td>登出账户:</td>
                             <td>
                                 <button onclick="window.open('/logout');" type="button" class="layui-btn layui-bg-black">
                                     <i class="layui-icon layui-icon-logout"></i>
@@ -91,7 +93,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>RESET-KEY:</td>
+                            <td>重置密码:</td>
                             <td>
                                 <button onclick="window.open('/reset');" type="button" class="layui-btn layui-bg-black">
                                     <i class="layui-icon layui-icon-key"></i>

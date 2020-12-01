@@ -16,52 +16,46 @@
   </span>
   <div class="main layui-anim layui-anim-upbit">
     <a name="check">审查</a>
-    <div class="check-block">
+      <button onclick="window.open('/download/{{ now_category }}');" type="button" class="layui-btn layui-bg-black" style="float:right;margin: 60px 3px 0px;">下载当前分类</button>
+      <div class="check-block">
+        <div class="category" style="float:right;">
+          <form>
+            <label class="layui-btn layui-bg-black download-botton">分类</label>
+            <select id="category" required>
+              <option id="default-item" value="0">请选择</option>
+              {% for k,v in category.items() %}
+              <option id='category_item' value="{{ k }}">{{ v }}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </div>
+      <p style="float:right;font-size:17px;margin:17px;">当前分类：{{ now_category }}</p>
       <p style="margin-top: 5px;">ID: {{ current_user.id }}</p>
       <p>ORG-ID: {{ current_user.org_id }}</p>
-      <div style="width:auto; height:500px; overflow:scroll;">
-        <table class="layui-table check-table">
-          <thead>
-            <tr>
-              <th class="table-index">Name</th>
-              <th class="table-index">ID</th>
-              <th class="table-index">ORG-ID</th>
-              <th>11/19/.20</th>
-              <th>11/20/.20</th>
-              <th>11/21/.20</th>
-              <th>11/22/.20</th>
-              <th>11/23/.20</th>
-              <th>11/24/.20</th>
-              <th>11/25/.20</th>
-              <th>11/26/.20</th>
-              <th>11/27/.20</th>
-              <th>11/28/.20</th>
-              <th>11/29/.20</th>
-              <th>11/30/.20</th>
-              <th>12/01/.20</th>
-              <th>12/02/.20</th>
-              <th>12/03/.20</th>
-              <th>12/04/.20</th>
-              <th>12/05/.20</th>
-              <th>12/06/.20</th>
-              <th>12/07/.20</th>
-              <th>12/08/.20</th>
-            </tr> 
-          </thead>
-          <tbody>
-            <tr>
-              <td>茶花茶</td>
-              <td>1729130135</td>
-              <td>01-19-01</td>
-              <td>Finished</td>
-            </tr>
-            <tr>
-              <td>上杉纱织</td>
-              <td>1729130136</td>
-              <td>01-19-01</td>
-              <td>Unfinished</td>
-            </tr>
-          </tbody>
+      <div>
+        <table lay-filter="check-table">
+            <thead>
+              <tr>
+                <th lay-data="{field:'name', fixed:'left', width:90}">姓名</th>
+                <th lay-data="{field:'id', width:110}">ID</th>
+                <th lay-data="{field:'org_id', width:90}">ORG-ID</th>
+                {% for header in table_header %}
+                  <th lay-data="{field:'{{ header }}', width:100}" class="table-index">{{ header }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for info in table_info %}
+              <tr>
+                {% for own_info in info[:2] %}
+                <td>{{ own_info }}</td>
+                {% endfor %}
+                {% for own_status in info[2:] %}
+                <td>{{ own_status }}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
         </table>
       </div> 
       <br>
@@ -117,15 +111,31 @@
     document.getElementById("check-nav").setAttribute('class','layui-nav-item layui-this')
 </script>
 <script>
-  //Demo
   layui.use('form', function(){
     var form = layui.form;
-    
-    //监听提交
     form.on('submit(formDemo)', function(data){
       layer.msg(JSON.stringify(data.field));
       return false;
     });
+  });
+</script>
+<script>
+  $("#category").on('change',function (){
+    obj = $("#category").find("option:selected")
+    text = obj.text();
+    window.location.replace('/check/'+text);
+  });
+</script>
+<script>
+  layui.use('table', function(){
+    var table = layui.table;
+    //转换静态表格
+
+    table.init('check-table', {
+    height: 500 //设置高度
+    ,limit: 50 //注意：请务必确保 limit 参数（默认：10）是与你服务端限定的数据条数一致
+    //支持所有基础参数
+    }); 
   });
 </script>
 {% endblock %}

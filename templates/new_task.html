@@ -7,37 +7,45 @@
 {% block content%}
 <div class="new-task layui-anim layui-anim-upbit">
     <div class="login">
-        <h3>Send Task</h3>
-        <p style="margin: 10px 200px;">ORG-ID: 01-19-01</p>
+        <h3>发布任务</h3>
+        <p style="margin: 10px 200px;">ORG-ID: {{ current_user.org_id }}</p>
         <fieldset class="layui-elem-field layui-field-title send-task-tips">
-            <legend class="title-two">Format - Tips</legend>
+            <legend class="title-two">格式 - Tips</legend>
                 <div class="layui-field-box" style="margin-left: 10px;line-height: 25px;">
-                    <p>1. Your tasks will be automatically posted to all accounts that use your organization ID.</p>
-                    <p>2. Pay attention, you fill the word block [Task date], this date will be used in the header of the form so this field is unique and required.</p>
-                    <p>3. If you fill in the notes, the notes will be sent to the [Info] module of the [Check] page.</p>
-                    <p>4. After you post the task, your organization members can select the task to upload on the [Upload] page.</p>
-                    <p>5. At present, it is not certain when the file corresponding to your task will be deleted, please download it as soon as possible in the file download interface.</p>
+                    <p>1. 在一切开始之前，您要确认您已经创建过了任务分类，如果还没有，请点击<a href="/new_task/category">[这里]</a></p>
+                    <p>2. 你的任务将会自动发布至所有使用了您的组织ID的账户.</p>
+                    <p>3. 请注意, 您在[任务日期]字段填充的日期将作为[Check]界面的表头, 所以该字段为必填字段.</p>
+                    <p>4. 每个分类每天只能发送一个任务, 原因同上.</p>
+                    <p>3. 如果你填充了[备注]字段, 这个消息将会发到[检查]界面的[公告]模块.(暂时不能)</p>
+                    <p>4. 在你发送任务后, 你的组织成员就可以在[上传]界面选择任务.</p>
+                    <p>5. 您可以在[检查]界面下载对应分类已经上传的文件.</p>
                 </div>
         </fieldset>
         <div class="form-body"></div>
         <form class="layui-form task-form" method="POST">
             <div class="layui-form-item">
-            <label class="layui-form-label layui-bg-black">Task title</label>
+            <label class="layui-form-label layui-bg-black">任务标题</label>
             <div class="layui-input-block">
                 {{ form.csrf_token }}
-                <input type="text" name="task_title" required  lay-verify="required" placeholder="Enter a title of the new task." autocomplete="off" class="layui-input" style="width: 390px;">
+                <input type="text" name="task_title" required  lay-verify="required" placeholder="输入新任务的标题" autocomplete="off" class="layui-input" style="width: 390px;">
             </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label layui-bg-black">Task date</label>
+                <label class="layui-form-label layui-bg-black">任务分类</label>
                 <div class="layui-input-block">
-                    <input type="date" name="task_date" required lay-verify="required" placeholder="Enter a date of the new task." autocomplete="off" class="layui-input" style="width: 390px;">
+                  {{ form.task_category }}
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-bg-black">任务日期</label>
+                <div class="layui-input-block">
+                    <input type="date" name="task_date" required lay-verify="required" placeholder="输入新任务的日期" autocomplete="off" class="layui-input" style="width: 390px;">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label layui-bg-black">Notes</label>
+                <label class="layui-form-label layui-bg-black">备注</label>
                   <div class="layui-input-block">
-                    <textarea name="task_notes" required placeholder="Remarks." class="layui-textarea"></textarea>
+                    <textarea name="task_notes" placeholder="Remarks." class="layui-textarea"></textarea>
                   </div>
             </div>
             <div class="layui-form-item">

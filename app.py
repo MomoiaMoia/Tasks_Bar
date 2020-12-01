@@ -1,8 +1,10 @@
-from flask import Flask,render_template,redirect,flash
-from form import LoginForm, NewTaskForm, ResetPasswdForm ,UploadForm
+from flask import Flask,render_template,redirect,flash,make_response
+from flask.helpers import send_from_directory
+from form import LoginForm, NewCategoryForm, NewTaskForm, ResetPasswdForm ,UploadForm
 from flask_login import login_user, login_required
 from flask_login import LoginManager, current_user
 from flask_login import logout_user
+import shutil
 import uuid
 import os
 import configparser
@@ -22,8 +24,6 @@ user = cf.get('db','db_user')
 pwd = cf.get('db','db_pwd')
 db = cf.get('db','db_database')
 data_file_path = cf.get('file','data_file_path')
-# # #配置文件路径
-# path = cf.get('file','config_file_path')
 #————————————————————————————————————————————————————————
 #————————————————————————————————————————————————————————
 #                      数据库管理                        |
@@ -76,6 +76,9 @@ def upload_page():
         msg_task = form.msg_task.data        #暂时用不到这个
         #构造文件路径和存储文件
         if int(select_tasks) in list(task_path_list.keys()):
+            date_category = DB.query_tasks_date_category(db_cursor,select_tasks)[0]
+            print(date_category)
+            DB.update_tasks_upload_info(db_cursor,database,current_user.org_id + "_" + date_category[1].lower(),date_category[0],current_user.id)
             file_path = task_path_list[int(select_tasks)] + f"\{str(current_user.id)}_{str(current_user.user_name)}_{str(uuid.uuid4().hex)}_{str(file.filename)}" 
             file.save(file_path)
             flash('Upload success')
@@ -86,11 +89,36 @@ def upload_page():
     return render_template("upload.html", form=form, task_list=task_list)
 
 
-#复查界面
+#下载界面
+@app.route('/download/<category>',methods=['GET'])
 @login_required
+def download_file(category=''):
+    directory = f'{str(data_file_path)}\{str(current_user.org_id)}'
+    try:
+        shutil.make_archive(fr"{str(directory)}\{str(category)}", 'zip', root_dir=fr'{str(directory)}\{str(category)}')
+        filename = f'{str(category)}.zip'
+        response = make_response(send_from_directory(str(directory), filename, as_attachment=True))
+        response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+        return response
+    except:
+        flash('您或许选择了还未发布过任务的分类。')
+
+    
+#复查界面
 @app.route('/check')
-def check_page():
-    return render_template("check.html")
+@app.route('/check/<table_category>')
+@login_required
+def check_page(table_category=''):
+    category_list = DB.query_category(db_cursor,current_user.org_id)
+    try:
+        table_header,table_info = DB.query_check_table(db_cursor,str(current_user.org_id) +'_' + str(table_category).lower())
+        table_header = [header[0] for header in table_header]
+        table_info = [list(info) for info in table_info]
+        for info in table_info:
+            info[1],info[2] = info[2],info[1]
+        return render_template("check.html",table_header=table_header,table_info=table_info,category=category_list,now_category=table_category)
+    except:
+        return render_template("check.html",category=category_list)
 
 
 #个人界面
@@ -143,25 +171,32 @@ def login_page():
 @app.route('/new_task', methods=['GET','POST'])
 @login_required
 def new_task():
-    #实例化新任务表单
-    form = NewTaskForm()
     #构造用户
     user = DB.user_info(db_cursor,current_user.id)
+    category_list = DB.query_category(db_cursor,current_user.org_id)
+    print(category_list)
+    #实例化新任务表单
+    form = NewTaskForm(category_list=category_list)
     #管理员认证
     if user.is_authenticated_admin(current_user.user_type):
         #判定表单
         if form.validate_on_submit():
             #获取表单数据
             title = form.task_title.data
+            category = form.task_category.data
             date = form.task_date.data
             notes = form.task_notes.data
+            category = category_list[int(category)]
             #构造任务名
             task_name = (f"{str(date)}_{str(title)}_{str(current_user.org_name)}")
             #构造任务路径
-            path = (fr"{str(data_file_path)}\{str(current_user.org_id)}\{str(date)}_{str(title)}_{str(current_user.org_name)}_{str(uuid.uuid4().hex)}")
+            path = (fr"{str(data_file_path)}\{str(current_user.org_id)}\{str(category).lower()}\{str(date)}_{str(title)}_{str(current_user.org_name)}_{str(uuid.uuid4().hex)}")
             os.makedirs(path)
             #数据库写入
-            flash(DB.insert_task_info(db_cursor,database,current_user.org_id,title,date,notes,path,task_name))
+            #复查表录入
+            DB.insert_task_check_table_userinfo(db_cursor,database,str(current_user.org_id)+'_'+str(category).lower(),str(date),"未完成")
+            #信息录入
+            flash(DB.insert_task_info(db_cursor,database,current_user.org_id,title,date,notes,path,task_name,category.lower()))
             #重定向
             return redirect('/upload')
     #管理员认证失败
@@ -169,6 +204,28 @@ def new_task():
         flash('Not authorized')
         return redirect('/mine')
     return render_template("new_task.html", form=form)
+
+
+@app.route('/new_task/category', methods=['GET','POST'])
+@login_required
+def create_category_page():
+    #实例化表单
+    form = NewCategoryForm()
+    category_temp = form.new_category.data
+    print(category_temp)
+    if form.validate_on_submit():
+        category = category_temp.split(',')
+        print(category)
+        if (',' in list(category_temp) or '，' in list(category_temp)) and len(category) < 2 :
+            category = category_temp.split('，')
+            print(current_user.org_id,category)
+        for item in category:
+            if DB.insert_category_tb(db_cursor,database,current_user.org_id,item.lower()):
+                table_name = str(current_user.org_id) + '_' + str(item)
+                print(table_name)
+                DB.create_category_tb(db_cursor,database,current_user.org_id,table_name)
+        return redirect('/new_task')
+    return render_template("category.html", form=form)
 
 
 #重置密码界面
@@ -206,6 +263,13 @@ def reset_passwd_page():
 def logout():
     logout_user()
     return redirect('/index')
+
+
+@app.route("/create_tb")
+@login_required
+def create_tb_page():
+    flash('这将会花费一些时间，请稍后再回到这个页面查看')
+
 
 if __name__=="__main__":
     app.run(debug=True)
