@@ -19,7 +19,9 @@
   {% endfor %}
   <div class="main layui-anim layui-anim-upbit">
     <a name="check">审查</a>
-      <button id='download' type="button" class="layui-btn layui-bg-black" style="float:right;margin: 60px 3px 0px;">下载当前分类</button>
+      {% if current_user.type == 'Manager' or current_user.type == 'Cross Organization'%}
+        <button id='download' type="button" class="layui-btn layui-bg-black" style="float:right;margin: 60px 3px 0px;">下载当前分类</button>
+      {% endif %}
       <div class="check-block">
         <div class="category" style="float:right;">
           <form>
