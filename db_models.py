@@ -127,7 +127,7 @@ class DB_Conf():
             dbobj.rollback()
             raise UserWarning
 
-    def query_category(self,cursor,org_id):
+    def query_category(self,cursor,*org_id):
         SQL = "SELECT * FROM org_tasks_category WHERE org_id = %s"
         try:
             cursor.execute(SQL,(org_id))

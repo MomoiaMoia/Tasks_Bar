@@ -53,6 +53,12 @@ blockquote {
     height: 50px;
 }
 
+#admin_category {
+    min-width: 100px;
+    min-height: 35px;
+    margin: 15px auto 0px;
+}
+
 #category {
     min-width: 100px;
     min-height: 35px;

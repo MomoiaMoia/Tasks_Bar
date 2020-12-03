@@ -14,22 +14,35 @@
     <a href="#info">公告</a>
     <a href="#note">笔记</a>
   </span>
+  {% for message in get_flashed_messages() %}
+    <div class="flash layui-elem-quote" style="margin-top: 10px;">{{ message }}</div>
+  {% endfor %}
   <div class="main layui-anim layui-anim-upbit">
     <a name="check">审查</a>
-      <button onclick="window.open('/download/{{ now_category }}');" type="button" class="layui-btn layui-bg-black" style="float:right;margin: 60px 3px 0px;">下载当前分类</button>
+      <button id='download' type="button" class="layui-btn layui-bg-black" style="float:right;margin: 60px 3px 0px;">下载当前分类</button>
       <div class="check-block">
         <div class="category" style="float:right;">
           <form>
             <label class="layui-btn layui-bg-black download-botton">分类</label>
-            <select id="category" required>
-              <option id="default-item" value="0">请选择</option>
-              {% for k,v in category.items() %}
-              <option id='category_item' value="{{ k }}">{{ v }}</option>
-              {% endfor %}
-            </select>
+            {% if org_category is defined() %}
+              <select id="admin_category" required>
+                <option id="default-item" value="0">请选择</option>
+                {% for item in org_category %}
+                <option id='category-item' value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+              </select>
+            {% endif %}
+            {% if category is defined() %}
+              <select id="category" required>
+                <option id="default-item" value="0">请选择</option>
+                {% for k,v in category.items() %}
+                <option id='category-item' value="{{ k }}">{{ v }}</option>
+                {% endfor %}
+              </select>
+            {% endif %}
           </form>
         </div>
-      <p style="float:right;font-size:17px;margin:17px;">当前分类：{{ now_category }}</p>
+      <p style="float:right;font-size:17px;margin:17px;">当前分类：{{ org_id }}, {{ now_category }}</p>
       <p style="margin-top: 5px;">ID: {{ current_user.id }}</p>
       <p>ORG-ID: {{ current_user.org_id }}</p>
       <div>
@@ -120,10 +133,36 @@
   });
 </script>
 <script>
+  $("#admin_category").on('change',function (){
+    obj = $("#admin_category").find("option:selected")
+    text = obj.text();
+    window.location.replace('/check/'+text);
+  });
+</script>
+<script>
   $("#category").on('change',function (){
     obj = $("#category").find("option:selected")
     text = obj.text();
-    window.location.replace('/check/'+text);
+    var pathname = window.location.pathname.split('/')
+    console.log(pathname)
+    var org_id = '{{ org_id }}'
+    console.log(org_id)
+    if (org_id !== pathname[2]) {
+      var org_id = pathname[2]
+    }
+    console.log(org_id)
+    if (pathname[2] && pathname[2] === org_id) {
+      window.location.replace('http://127.0.0.1:5000/' + pathname[1] + '/' + pathname[2] + '/' + text);
+    } else {
+      window.location.replace('http://127.0.0.1:5000/' + pathname[1] + '/' + '{{ current_user.org_id }}' + '/' + text);
+    }
+  });
+</script>
+<script>
+  $('#download').click(function(){
+    var pathname = window.location.pathname.split('/');
+    var org_id = pathname[2];
+    window.open('/download/' + pathname[2] + '/' + pathname[3]);
   });
 </script>
 <script>

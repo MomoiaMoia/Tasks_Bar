@@ -47,6 +47,8 @@ login_manager.init_app(app)
 app.secret_key="secret string"
 
 
+
+
 #主页
 @app.route('/')
 @app.route('/index')
@@ -89,11 +91,53 @@ def upload_page():
     return render_template("upload.html", form=form, task_list=task_list)
 
 
-#下载界面
-@app.route('/download/<category>',methods=['GET'])
+ 
+#复查界面
+@app.route('/check')
+@app.route('/check/<org_id>')
+@app.route('/check/<org_id>/<table_category>')
 @login_required
-def download_file(category=''):
-    directory = f'{str(data_file_path)}\{str(current_user.org_id)}'
+def check_page(org_id='',table_category=''):
+    category_list = DB.query_category(db_cursor,current_user.org_id)
+    if len(category_list) >= 1:
+        try:
+            """
+            待优化
+            此处为非跨组织用户判断
+            """
+            table_header,table_info = DB.query_check_table(db_cursor,str(org_id) +'_' + str(table_category).lower())
+            table_header = [header[0] for header in table_header]
+            table_info = [list(info) for info in table_info]
+            for info in table_info:
+                info[1],info[2] = info[2],info[1]
+            return render_template("check.html",table_header=table_header,table_info=table_info,org_id=org_id,category=category_list,now_category=table_category)
+        except:
+            return render_template("check.html",category=category_list)
+    else:
+        """
+        待优化
+        此处为跨组织用户判断
+        """
+        org_id_temp = current_user.org_id.split(',')
+        if len(current_user.org_id.split(',')) > 1:
+            category_list = DB.query_category(db_cursor,org_id)
+            try:
+                table_header,table_info = DB.query_check_table(db_cursor,str(org_id) +'_' + str(table_category).lower())
+                table_header = [header[0] for header in table_header]
+                table_info = [list(info) for info in table_info]
+                for info in table_info:
+                    info[1],info[2] = info[2],info[1]
+                return render_template("check.html",table_header=table_header,table_info=table_info,org_id=org_id,org_category=org_id_temp,category=category_list,now_category=table_category)
+            except:
+                return render_template("check.html",org_id=org_id,org_category=org_id_temp,category=category_list)
+        return render_template("check.html",org_category=org_id_temp)
+
+
+#下载界面
+@app.route('/download/<org_id>/<category>',methods=['GET'])
+@login_required
+def download_file(org_id='',category=''):
+    directory = f'{str(data_file_path)}\{str(org_id)}'
     try:
         shutil.make_archive(fr"{str(directory)}\{str(category)}", 'zip', root_dir=fr'{str(directory)}\{str(category)}')
         filename = f'{str(category)}.zip'
@@ -102,25 +146,9 @@ def download_file(category=''):
         return response
     except:
         flash('您或许选择了还未发布过任务的分类。')
+        return redirect('/check')
 
-    
-#复查界面
-@app.route('/check')
-@app.route('/check/<table_category>')
-@login_required
-def check_page(table_category=''):
-    category_list = DB.query_category(db_cursor,current_user.org_id)
-    try:
-        table_header,table_info = DB.query_check_table(db_cursor,str(current_user.org_id) +'_' + str(table_category).lower())
-        table_header = [header[0] for header in table_header]
-        table_info = [list(info) for info in table_info]
-        for info in table_info:
-            info[1],info[2] = info[2],info[1]
-        return render_template("check.html",table_header=table_header,table_info=table_info,category=category_list,now_category=table_category)
-    except:
-        return render_template("check.html",category=category_list)
-
-
+   
 #个人界面
 @app.route('/mine')
 @login_required
@@ -263,12 +291,6 @@ def reset_passwd_page():
 def logout():
     logout_user()
     return redirect('/index')
-
-
-@app.route("/create_tb")
-@login_required
-def create_tb_page():
-    flash('这将会花费一些时间，请稍后再回到这个页面查看')
 
 
 if __name__=="__main__":
