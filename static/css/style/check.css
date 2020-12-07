@@ -1,6 +1,5 @@
 /* check_page */
 .layui-elem-field legend {
-    margin: 100px 338px 0px;
     padding: 0 10px;
     font-size: 40px;
     font-weight: 300;
@@ -8,8 +7,8 @@
 
 .layui-breadcrumb {
     font-size: 0;
-    margin: 0px 350px;
 }
+
 
 .check-index a {
     font-size: 20px;
@@ -17,14 +16,14 @@
 }
 
 .main {
-    margin: 30px 350px;
+    margin-top: 1.5%;
 }
 
-.main a {
+a {
     font-size: 30px;
 }
 
-.main p {
+p {
     font-size: 20px;
 }
 
@@ -56,11 +55,9 @@ blockquote {
 #admin_category {
     min-width: 100px;
     min-height: 35px;
-    margin: 15px auto 0px;
 }
 
 #category {
     min-width: 100px;
     min-height: 35px;
-    margin: 15px auto 0px;
 }

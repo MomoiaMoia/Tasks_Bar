@@ -2,14 +2,14 @@
 .header {
     position: relative;
     text-align: center;
-    height: 400px;
-    background: url('/static/images/header.png') no-repeat;
+    min-height: 100%;
+    padding: 7%;
+    background: url(/static/images/header.png) no-repeat;
     background-size: 100% auto;
     z-index: -1;
 }
 
 .header > h1 {
-    padding: 135px 0 6px;
     font-size: 90px;
     color: #f0f0f0;
 }
@@ -40,5 +40,6 @@
 
 .layui-card:last-child {
     margin-bottom: 0;
-    width: 480px;
+    width: 95%;
 }
+

@@ -1,6 +1,5 @@
 /* upload_page */
 .layui-elem-field legend {
-    margin: 170px 338px 0px;
     padding: 0 10px;
     font-size: 40px;
     font-weight: 300;
@@ -17,7 +16,7 @@
 }
 
 h1 {
-    padding: 200px 0 6px;
+    padding: 10% 0px 0px;
     font-size: 90px;
     color: #393D49;
 }
@@ -28,7 +27,7 @@ h2 {
 }
 
 h3 {
-    margin: 85px 0px 20px;
+    margin: 4% 0px 1%;
     font-size: 30px;
     color: #393D49;
 }
@@ -70,10 +69,10 @@ h3 {
 
 .send-task-tips {
     position: relative;
-    margin: 20px 200px;
+    margin: 2% auto;
     text-align: left;
     font-size: 17px;
-    width: 800px;
+    width: 60%;
 }
 
 .send-task-tips p {
@@ -106,21 +105,20 @@ h3 {
 /* mine_page */
 .bg {
     position: absolute;
-    height: 480px;
-    width: 700px;
+    height: 100%;
+    width: 60%;
     background: url(/static/images/mine-bg.png) no-repeat;
     background-size: 100% auto;
-    margin: 120px 0px 0px 860px;
+    margin: 5% 0% 0% 50%;
     z-index: -1;
 }
 
 .main {
     margin: 0 auto;
-    width: 1150px;
 }
 
 .main-body {
-    margin: 55px 0px;
+    margin: 5% 0px;
 }
 
 .layui-col-md4 {
@@ -132,37 +130,37 @@ h3 {
 }
 
 .left-index {
-    height: 450px;
-    width: 150px;
+    height: 490px;
+    width: 65%;
     font-size: 20px;
     padding-right: 30px;
     border-right: 1.5px solid #bebebe!important;
 }
 
 #push-one {
-    height: 135px;
+    margin-top: 80%;
 }
 #push-two {
-    height: 135px;
+    margin-top: 80%;
 }
 #push-three {
     height: 230px;
 }
 
 .right-index-body {
-    margin-top: -10px;
-    margin-left: 70px;
+    margin-top: -1%;
+    margin-left: 5%;
     font-size: 17px;
     line-height: 45px;    
     column-width: 1000px;
 }
 
 .right-index-org {
-    margin-top: 30px;
+    margin-top: 3.5%;
 }
 
 .right-index-option {
-    margin-top: 30px;
+    margin-top: 3.5%;
 }
 
 .layui-btn {

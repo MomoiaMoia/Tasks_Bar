@@ -61,11 +61,11 @@ class DB_Conf():
         except:
             return None
 
-    def insert_task_info(self,cursor,dbobj,org_id,title,date,notes,path,task_name,category):
+    def insert_task_info(self,cursor,dbobj,org_id,title,date,end_date,notes,path,task_name,category):
         self.cursor = cursor
-        SQL = 'INSERT INTO `org_tasks`(`org_id`,`task_title`,`task_date`,`task_notes`,`task_file_path`,`full_task_name`,`tasks_category`) VALUES(%s,%s,%s,%s,%s,%s,%s)'
+        SQL = 'INSERT INTO `org_tasks`(`org_id`,`task_title`,`task_date`,`task_end_date`,`task_notes`,`task_file_path`,`full_task_name`,`tasks_category`) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'
         try:
-            self.cursor.execute(SQL,(org_id,title,date,notes,path,task_name,category))
+            self.cursor.execute(SQL,(org_id,title,date,end_date,notes,path,task_name,category))
             dbobj.commit()
             return 'Task release success.'
         except:
@@ -78,11 +78,11 @@ class DB_Conf():
         dbobj.commit()
         return None
 
-    def query_org_task(self,cursor,org_id):
+    def query_org_task(self,cursor,org_id,now_time):
         self.cursor = cursor
-        SQL = "SELECT full_task_name,task_index,task_file_path FROM org_tasks WHERE `org_id`=%s"
+        SQL = "SELECT full_task_name,task_index,task_file_path FROM org_tasks WHERE `org_id`=%s and `task_end_date` > %s and `task_date` < %s"
         try:
-            self.cursor.execute(SQL,org_id)
+            self.cursor.execute(SQL,(org_id,now_time,now_time))
             info = self.cursor.fetchall()
             return info
         except:

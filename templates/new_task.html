@@ -14,8 +14,8 @@
                 <div class="layui-field-box" style="margin-left: 10px;line-height: 25px;">
                     <p>1. 在一切开始之前，您要确认您已经创建过了任务分类，如果还没有，请点击<a href="/new_task/category">[这里]</a></p>
                     <p>2. 你的任务将会自动发布至所有使用了您的组织ID的账户.</p>
-                    <p>3. 请注意, 您在[任务日期]字段填充的日期将作为[Check]界面的表头, 所以该字段为必填字段.</p>
-                    <p>4. 每个分类每天只能发送一个任务, 原因同上.</p>
+                    <p>3. 请注意, 您在[任务日期]字段填充的日期将作为[检查]界面的表头, 所以该字段为必填字段.</p>
+                    <p>4. 请注意, 日期的格式为 YY-MM-DD HH:MM:SS</p>
                     <p>3. 如果你填充了[备注]字段, 这个消息将会发到[检查]界面的[公告]模块.(暂时不能)</p>
                     <p>4. 在你发送任务后, 你的组织成员就可以在[上传]界面选择任务.</p>
                     <p>5. 您可以在[检查]界面下载对应分类已经上传的文件.</p>
@@ -37,9 +37,15 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label layui-bg-black">任务日期</label>
+                <label class="layui-form-label layui-bg-black">开始日期</label>
                 <div class="layui-input-block">
-                    <input type="date" name="task_date" required lay-verify="required" placeholder="输入新任务的日期" autocomplete="off" class="layui-input" style="width: 390px;">
+                    <input id='date' type="datetime" name="task_date" required lay-verify="required" placeholder="输入新任务的日期" autocomplete="off" class="layui-input" style="width: 390px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-bg-black">结束日期</label>
+                <div class="layui-input-block">
+                    <input id='date2' type="datetime" name="task_end_date" required lay-verify="required" placeholder="输入新任务的日期" autocomplete="off" class="layui-input" style="width: 390px;">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -70,5 +76,23 @@
         return false;
       });
     });
+</script>
+<script src="/static/build/layui.js"></script>
+<script>
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#date' //指定元素
+    ,type: 'datetime'
+    ,theme: '#393D49'
+  });
+  laydate.render({
+    elem: '#date2' //指定元素
+    ,type: 'datetime'
+    ,theme: '#393D49'
+  });
+});
 </script>
 {% endblock %}

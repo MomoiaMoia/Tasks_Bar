@@ -11,7 +11,7 @@
     {% for message in get_flashed_messages() %}
       <div class="flash layui-elem-quote">{{ message }}</div>
     {% endfor %}
-    <div class="form-body"></div>
+    <div class="form-body">
     <form class="layui-form" method="POST">
         <div class="layui-form-item">
           <label class="layui-form-label layui-bg-black">账号</label>
@@ -46,6 +46,7 @@
           </div>
         </div>
       </form>
+    </div>
 </div>
 {% endblock %}
 

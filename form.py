@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import StringField, PasswordField,SubmitField,BooleanField,DateField,TextAreaField,SelectField,FileField
+from wtforms import StringField, PasswordField,SubmitField,BooleanField,TextAreaField,SelectField,FileField,DateTimeField
 from wtforms.validators import DataRequired, Length
 
 class LoginForm(FlaskForm):
-    userid = StringField(validators=[DataRequired()], render_kw={'type':'text','placeholder':'Enter your ID','class':'layui-input','style':'width: 390px;'})
-    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter password','class':'layui-input','style':'width: 390px;'})
+    userid = StringField(validators=[DataRequired()], render_kw={'type':'text','placeholder':'Enter your ID','class':'layui-input','style':'width: 78%;'})
+    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter password','class':'layui-input','style':'width: 205%;'})
     switch = BooleanField(render_kw={'type':'checkbos','lay-skin':'switch'})
     submit = SubmitField('Login')
 
@@ -13,7 +13,8 @@ class LoginForm(FlaskForm):
 class NewTaskForm(FlaskForm):
     task_title = StringField(validators=[DataRequired()])
     task_category = SelectField(validators=[DataRequired()])
-    task_date = DateField(validators=[DataRequired()])
+    task_date = DateTimeField(validators=[DataRequired()])
+    task_end_date = DateTimeField(validators=[DataRequired()])
     task_notes = TextAreaField()
     task_submit = SubmitField('Submit')
 
@@ -41,7 +42,7 @@ class NewCategoryForm(FlaskForm):
         
 
 class ResetPasswdForm(FlaskForm):
-    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the old password','class':'layui-input','style':'width: 390px;'})
-    new_passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the new password','class':'layui-input','style':'width: 390px;'})
-    new_passwd_repeat = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Repeat the new password','class':'layui-input','style':'width: 390px;'})
+    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the old password','class':'layui-input','style':'width: 78%;'})
+    new_passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the new password','class':'layui-input','style':'width: 205%;'})
+    new_passwd_repeat = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Repeat the new password','class':'layui-input','style':'width: 205%;'})
     submit = SubmitField('Reset')

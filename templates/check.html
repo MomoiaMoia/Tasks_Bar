@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block content %}
-<div>
-  <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
-    <legend>Tasks Bar - 审查</legend>
+<div class="layui-row">
+  <div class="layui-col-sm3">
+  <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);">
+    <legend>Tasks Bar - 检查</legend>
   </fieldset>
   <span class="layui-breadcrumb layui-anim layui-anim-fadein check-index">
-    <a href="#check">审查</a>
+    <a href="#check">检查</a>
     <a href="#info">公告</a>
     <a href="#note">笔记</a>
   </span>
@@ -19,9 +20,6 @@
   {% endfor %}
   <div class="main layui-anim layui-anim-upbit">
     <a name="check">审查</a>
-      {% if current_user.type == 'Manager' or current_user.type == 'Cross Organization'%}
-        <button id='download' type="button" class="layui-btn layui-bg-black" style="float:right;margin: 60px 3px 0px;">下载当前分类</button>
-      {% endif %}
       <div class="check-block">
         <div class="category" style="float:right;">
           <form>
@@ -42,9 +40,12 @@
                 {% endfor %}
               </select>
             {% endif %}
+            {% if current_user.user_type == 'Manager' or current_user.user_type == 'Cross Organization'%}
+              <button id='download' type="button" class="layui-btn layui-bg-black">下载当前分类</button>
+            {% endif %}
           </form>
         </div>
-      <p style="float:right;font-size:17px;margin:17px;">当前分类：{{ org_id }}, {{ now_category }}</p>
+      <p style="float: right; margin: 3px 15px;">当前分类：{{ org_id }}, {{ now_category }}</p>
       <p style="margin-top: 5px;">ID: {{ current_user.id }}</p>
       <p>ORG-ID: {{ current_user.org_id }}</p>
       <div>
@@ -55,7 +56,7 @@
                 <th lay-data="{field:'id', width:110}">ID</th>
                 <th lay-data="{field:'org_id', width:90}">ORG-ID</th>
                 {% for header in table_header %}
-                  <th lay-data="{field:'{{ header }}', width:100}" class="table-index">{{ header }}</th>
+                  <th lay-data="{field:'{{ header }}', width:110}" class="table-index">{{ header }}</th>
                 {% endfor %}
               </tr>
             </thead>
@@ -120,6 +121,7 @@
   </div>
 </div>
 {% endblock %}
+
 
 {% block scripts %}
 <script>

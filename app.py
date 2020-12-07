@@ -4,6 +4,7 @@ from form import LoginForm, NewCategoryForm, NewTaskForm, ResetPasswdForm ,Uploa
 from flask_login import login_user, login_required
 from flask_login import LoginManager, current_user
 from flask_login import logout_user
+import datetime
 import shutil
 import uuid
 import os
@@ -61,7 +62,7 @@ def index_page():
 @login_required
 def upload_page():
     #获取组织任务
-    select_tasks = DB.query_org_task(db_cursor,current_user.org_id)
+    select_tasks = DB.query_org_task(db_cursor,current_user.org_id,datetime.datetime.now())
     #创建任务字典和任务文件路径
     task_list = {}
     task_path_list = {}
@@ -213,18 +214,19 @@ def new_task():
             title = form.task_title.data
             category = form.task_category.data
             date = form.task_date.data
+            end_date = form.task_end_date.data
             notes = form.task_notes.data
             category = category_list[int(category)]
             #构造任务名
             task_name = (f"{str(date)}_{str(title)}_{str(current_user.org_name)}")
             #构造任务路径
-            path = (fr"{str(data_file_path)}\{str(current_user.org_id)}\{str(category).lower()}\{str(date)}_{str(title)}_{str(current_user.org_name)}_{str(uuid.uuid4().hex)}")
+            path = (fr"{str(data_file_path)}\{str(current_user.org_id)}\{str(category).lower()}\{str(date).replace(' ','_').replace(':','_')}_{str(title)}_{str(current_user.org_name)}_{str(uuid.uuid4().hex)}")
             os.makedirs(path)
             #数据库写入
             #复查表录入
             DB.insert_task_check_table_userinfo(db_cursor,database,str(current_user.org_id)+'_'+str(category).lower(),str(date),"未完成")
             #信息录入
-            flash(DB.insert_task_info(db_cursor,database,current_user.org_id,title,date,notes,path,task_name,category.lower()))
+            flash(DB.insert_task_info(db_cursor,database,current_user.org_id,title,date,end_date,notes,path,task_name,category.lower()))
             #重定向
             return redirect('/upload')
     #管理员认证失败
@@ -234,6 +236,7 @@ def new_task():
     return render_template("new_task.html", form=form)
 
 
+#创建分类
 @app.route('/new_task/category', methods=['GET','POST'])
 @login_required
 def create_category_page():
@@ -249,7 +252,7 @@ def create_category_page():
             print(current_user.org_id,category)
         for item in category:
             if DB.insert_category_tb(db_cursor,database,current_user.org_id,item.lower()):
-                table_name = str(current_user.org_id) + '_' + str(item)
+                table_name = str(current_user.org_id) + '_' + str(item.lower())
                 print(table_name)
                 DB.create_category_tb(db_cursor,database,current_user.org_id,table_name)
         return redirect('/new_task')
