@@ -5,10 +5,104 @@
 {% endblock %}
 
 {% block content %}
-<fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);margin: 50px auto 0px;">
-    <legend>Tasks Bar - 文档</legend>
-    <p style="margin: 50px 350px 0px; font-size:large">在写了在写了</p>
-</fieldset>
+<div class="layui-row">
+    <div class="layui-col-sm3">
+    <fieldset class="layui-elem-field layui-field-title layui-anim layui-anim-fadein" style="border-color: rgb(156 156 156 / 66%);">
+        <legend>Tasks Bar - 文档</legend>
+    </fieldset>
+    <div class="main">
+        <div class="doc">
+            <img src="/static/images/banner.png" width="100%" height="70%" style="margin-bottom: 2%;">
+            <fieldset class="layui-elem-field">
+                <legend style="font-size: 25px;">简介</legend>
+                <div class="layui-field-box" style="text-indent: 2em;font-size:14px;">
+                    <p>“源于热爱，终于热爱。”</p>
+                    <br>
+                    <p>Tasks Bar 提供一个任务发布，任务文件提交，上交情况复查，信息，个人笔记共享的平台。</p>
+                    <p>项目仍在开发，如果您已经在使用，万分感谢您参与测试，如果您或您的组织希望想尝试，可联系<a href="mailto:1132756648@qq.com?subject=Feedback">1132756648@qq.com</a></p>
+                </div>
+            </fieldset>
+            <fieldset class="layui-elem-field">
+                <legend style="font-size: 25px;">组织结构</legend>
+                <div class="layui-field-box" style="text-indent: 2em;font-size:14px;line-height: 30px;">
+                    <img src="/static/images/org_structure.png" width="50%" height="auto" align='left'><p>当创建了组织后就可以引导成员在组织内创建用户，使用相同<strong>组织ID</strong>即可共享组织内相关内容，
+                        一个用户只能属于一个组织，即，一个用户只能拥有一个组织ID（跨组织用户除外），一个组织可以创建多个分类，任务将根据不同分类自动划分，且生成上交统计表格。当组织内拥有管理权限的用户发布了任务后，
+                        其他用户即可在上传界面看到已经发布的任务并可以选择对应文件上传，上传后，检查页面的统计表格将会自动更新上交情况，在检查页面也可以做到下载等操作。
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您期待有更多功能，或希望有什么功能，请联系1132756648@qq.com，或在<a href="https://github.com/UesugiSaori/tasks_bar">Github</a>界面提Issue.</p>
+                </div>
+            </fieldset>
+            <fieldset class="layui-elem-field">
+                <legend style="font-size: 25px;">发布任务</legend>
+                <div class="layui-field-box" style="text-indent: 2em;font-size:14px;line-height: 30px;">
+                <p>1. 只有一个组织内账户类型为Manager的用户，才可以创建新的任务。</p>
+                <p>2. 创建新任务的入口在<a href="/mine">[我的]</a>界面下方。<img src="/static/images/doc/doc_new_task.png" width="15%" height="auto"></p>
+                <p>3. 在创建一个新任务前需要创建分类，分类的所处架构可以看上方，在创建分类界面在创建新任务界面的[格式-Tips]的第一条。</p>
+                <p>4. 创建分类后即可在发布任务界面选择对应分类发布任务，同时在检查界面也会出现对应的分类选项，使用了您组织ID的成员自动会被下发该任务，且默认为未完成状态。</p>
+                <p>5. 发布任务时选择的开始时间和结束时间可以实现任务定时发送和定时停止上传。</p>
+                </div>
+            </fieldset>
+            <fieldset class="layui-elem-field">
+                <legend style="font-size: 25px;">上传文件</legend>
+                <div class="layui-field-box" style="text-indent: 2em;font-size:14px;line-height: 30px;">
+                <p>1. 当您所属组的管理员发布了任务后，即可在上传界面选择对应任务上传文件。</p>
+                <p>2. 上传前请认真观看格式要求。这比什么都重要。</p>
+                <p>3. 上传后即可前往检查界面选择对应分类检查是否上传成功。</p>
+                <p>4. 对某任务上传成功后，任务状态自动由未完成转换至已完成状态。</p>
+                </div>
+            </fieldset>
+            <fieldset class="layui-elem-field">
+                <legend style="font-size: 25px;">复查情况</legend>
+                <div class="layui-field-box" style="text-indent: 2em;font-size:14px;line-height: 30px;">
+                <p>1. <a href="/check">[检查]</a>界面提供了对于任务的复查。</p>
+                <p>2. 进入界面后请选择对应分类，表格将会自动展现到您的面前。<img src="/static/images/doc/doc_category.png" width="15%"></p>
+                <p>3. 如果您是管理员用户或是跨组织用户，可以在页面上看到[下载当前分类]的按钮，点击后稍等片刻将会下载该分类下所有文件。</p>
+                <p>4. 跨组织用户在选分类时，需先选择组织分类，后选择组织内容分类</p>
+                </div>
+            </fieldset>
+            <blockquote class="layui-elem-quote layui-quote-nm">万分感谢您的使用。</blockquote>
+        </div>
+        <div class="time-line" style="margin:3% 0px 10%">
+            <ul class="layui-timeline">
+                <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">至今</h3>
+                    <p>
+                        仍在路上。
+                    </p>
+                </div>
+                </li>
+                <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">12/03/2020</h3>
+                    <p>
+                        Beta测试 Version 0.2 发布。
+                        <br>“只有倾听用户的需求，才能走向未来。”
+                    </p>
+                </div>
+                </li>
+                <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">11/27/2020</h3>
+                    <p>
+                        Beta测试第一版发布。
+                        <br>“源于热爱，终于热爱。”
+                    </p>
+                </div>
+                </li>
+                <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">过去</div>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>
 {% endblock %}
 
 

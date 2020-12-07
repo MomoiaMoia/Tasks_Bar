@@ -143,7 +143,7 @@ class DB_Conf():
 
     def create_category_tb(self,cursor,dbobj,org_id,table_name):
         fk_name = 'fk_' + table_name
-        create_tb_SQL = f"CREATE TABLE `{table_name}`(user_id int PRIMARY KEY,CONSTRAINT `{fk_name}` FOREIGN KEY(`user_id`) REFERENCES user_info(`user_id`));"
+        create_tb_SQL = f"CREATE TABLE `{table_name}`(user_id bigint(255) PRIMARY KEY,CONSTRAINT `{fk_name}` FOREIGN KEY(`user_id`) REFERENCES user_info(`user_id`));"
         create_row_SQL = f"INSERT INTO `{table_name}`(user_id) VALUES(%s)"
         get_userid_SQL = 'SELECT `user_id` FROM user_info WHERE org_id=%s'
         try:
