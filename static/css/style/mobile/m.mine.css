@@ -1,0 +1,139 @@
+/* upload_page */
+@media screen and (max-width: 450px){
+.layui-form-item .layui-input-inline {
+    display: block;
+    float: none;
+    left: 0px;
+    width: auto;
+    margin: 0 0 0px 0;
+}
+}
+
+.login {
+    text-align: center;
+}
+
+.login form {
+    position: relative;
+    margin: 20px auto;
+    width: 95%;
+}
+
+h1 {
+    margin: 40% auto 10%;
+    font-size: 30px;
+    color: #393D49;
+}
+
+h2 {
+    font-size: 15px;
+    color: #393D49;
+}
+
+h3 {
+    margin: 4% 0px 1%;
+    font-size: 10px;
+    color: #393D49;
+}
+
+.login label {
+    text-align: center;
+}
+
+.login button {
+    margin-top: 15px;
+}
+.layui-input-block {
+    margin-left: 0px;
+    min-height: 36px;
+}
+
+.layui-input, .layui-textarea {
+    width: 77%;
+}
+
+
+.layui-form-onswitch {
+    border-color: #393D49;
+    background-color: #393D49;
+}
+
+.layui-form-switch {
+    margin: 8px 62% 0px 0px;
+}
+/* sendtask_page */
+.new-task {
+    margin: 0 auto;
+    width: 1150px;
+}
+
+.login p {
+    font-size: 20px;
+}
+
+.send-task-tips {
+    position: relative;
+    margin: 2% auto;
+    text-align: left;
+    font-size: 17px;
+    width: 60%;
+}
+
+.send-task-tips p {
+    font-size: 16px;
+}
+
+.send-task-tips legend {
+    font-size: 22px;
+}
+
+.title-two {
+    margin-left: 0px!important;
+    padding: 0 10px!important;
+    font-size: 20px!important;
+    font-weight: 300!important;
+}
+
+.layui-input, .layui-select, .layui-textarea {
+    height: 35px;
+}
+
+.layui-form-label {
+    padding: 7px 15px;
+    width: 14%;
+}
+
+.task-form {
+    margin: 0px auto!important;
+}
+/* mine_page */
+.right-index-org {
+    margin-top: 3.5%;
+}
+
+.right-index-option {
+    margin-top: 3.5%;
+}
+
+.layui-table td, .layui-table th {
+    padding: 10px 0px 10px 20px;
+}
+
+.layui-btn {
+    height: 25px;
+    line-height: 25px;
+}
+
+.layui-btn .layui-icon {
+    margin-right: 0px;
+}
+
+.flash {
+    position: relative!important;
+    margin: 20px auto 0px;
+    max-width: 100px;
+}
+
+.footer-index {
+    bottom: 0px;
+}

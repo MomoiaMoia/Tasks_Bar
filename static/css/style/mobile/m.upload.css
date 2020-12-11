@@ -1,0 +1,49 @@
+/* upload_page */
+.title-two {
+    font-size: 20px!important;
+    font-weight: 300!important;
+}
+
+.upload-block {
+    margin: -10px auto 17px;
+    padding: 7px;
+    text-align: center;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #393D49;
+}
+
+.upload-tips {
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    width: 95%;
+    margin: 4% 2% 6%;
+    line-height: 160%;
+}
+
+.form-contain {
+    width: 100%;
+    text-align: left;
+}
+
+.layui-form-label {
+    width: 100%;
+    padding: 9px 0px;
+}
+
+.layui-input-block {
+    margin-left: 0px;
+}
+
+.layui-btn {
+    margin-top: 13px;
+    margin-bottom: 30%;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0.3px;
+    overflow: visible;
+    margin: 1% 0px;
+}

@@ -4,8 +4,8 @@ from wtforms import StringField, PasswordField,SubmitField,BooleanField,TextArea
 from wtforms.validators import DataRequired, Length
 
 class LoginForm(FlaskForm):
-    userid = StringField(validators=[DataRequired()], render_kw={'type':'text','placeholder':'Enter your ID','class':'layui-input','style':'width: 78%;'})
-    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter password','class':'layui-input','style':'width: 205%;'})
+    userid = StringField(validators=[DataRequired()], render_kw={'type':'text','placeholder':'Enter your ID','class':'layui-input'})
+    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter password','class':'layui-input'})
     switch = BooleanField(render_kw={'type':'checkbos','lay-skin':'switch'})
     submit = SubmitField('Login')
 
@@ -42,7 +42,7 @@ class NewCategoryForm(FlaskForm):
         
 
 class ResetPasswdForm(FlaskForm):
-    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the old password','class':'layui-input','style':'width: 78%;'})
-    new_passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the new password','class':'layui-input','style':'width: 205%;'})
-    new_passwd_repeat = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Repeat the new password','class':'layui-input','style':'width: 205%;'})
+    passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the old password','class':'layui-input'})
+    new_passwd = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Enter the new password','class':'layui-input'})
+    new_passwd_repeat = PasswordField(validators=[DataRequired(),Length(8,128)], render_kw={'type':'password','placeholder':'Repeat the new password','class':'layui-input'})
     submit = SubmitField('Reset')

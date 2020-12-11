@@ -1,0 +1,66 @@
+{% extends '/desktop/base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/desktop/mine.css">
+{% endblock %}
+
+{% block content%}
+<div class="login">
+    <h1>Tasks Bar</h1>
+    <h2>A new way to collect tasks</h2>
+    {% for message in get_flashed_messages() %}
+      <div class="flash layui-elem-quote">{{ message }}</div>
+    {% endfor %}
+    <div class="form-body">
+    <form class="layui-form" method="POST">
+        <div class="layui-form-item">
+          <label class="layui-form-label layui-bg-black">账号</label>
+          <div class="layui-input-block">
+            {{ form.csrf_token }}
+            {{ form.userid }}
+            <div class="error" style="margin-left: -110px;">            
+              {% for message in form.userid.errors %}
+                <small class="error">{{ message }}</small><br>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label layui-bg-black">密码</label>
+          <div class="layui-input-inline">
+            {{ form.passwd }}
+            {% for message in form.passwd.errors %}
+              <small class="error">{{ message }}</small><br>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label layui-bg-black">记住我</label>
+          <div class="layui-input-block">
+            <input type="checkbox" name="switch" lay-skin="switch">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn layui-bg-black" id="submit" name="submit" type="submit" value="Login">登录</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    //Demo
+    layui.use('form', function(){
+      var form = layui.form;
+      
+      //监听提交
+      form.on('submit(formDemo)', function(data){
+        layer.msg(JSON.stringify(data.field));
+        return false;
+      });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,227 @@
+{% extends '/mobile/m.base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/mobile/m.check.css">
+<script src="https://www.layuicdn.com/extend/excel/1.6.5/layui_exts/excel.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+  <fieldset class="layui-elem-field layui-field-title">
+    <legend>Tasks Bar - 检查</legend>
+  </fieldset>
+  <span class="layui-breadcrumb check-index" style="visibility: visible;margin: 0px 8.5%;">
+    <a href="#check">检查</a>
+    <a href="#info">公告</a>
+    <a href="#note">笔记</a>
+  </span>
+  {% for message in get_flashed_messages() %}
+    <div class="flash layui-elem-quote" style="margin-top: 10px;">{{ message }}</div>
+  {% endfor %}
+  <div class="main-body layui-anim layui-anim-fadein">
+    <a name="check">审查</a>
+    <hr class="layui-bg-black" style="opacity: 15%;">
+    <p>ID: {{ current_user.id }}&nbsp;ORG-ID: {{ current_user.org_id }}</p>
+    <p>当前分类：{{ org_id }}&nbsp;&nbsp;{{ now_category }}</p>
+      <div class="check-block">
+        <div class="category">
+          <form>
+            <label class="layui-btn bg-gray download-botton">分类</label>
+            {% if org_category is defined() %}
+              <select id="admin_category" required>
+                <option id="default-item1" value="0">请选择</option>
+                {% for item in org_category %}
+                <option id='category-item' value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+              </select>
+            {% endif %}
+            {% if category is defined() %}
+              <select id="category" required>
+                <option id="default-item2" value="0">请选择</option>
+                {% for k,v in category.items() %}
+                <option id='category-item' value="{{ k }}">{{ v }}</option>
+                {% endfor %}
+              </select>
+            {% endif %}
+            {% if current_user.user_type == 'Manager' or current_user.user_type == 'Cross Organization'%}
+              <button id='download' type="button" class="layui-btn bg-gray">下载现分类文件</button>
+            {% endif %}
+            <button id='excel' type="button" class="layui-btn bg-gray" onclick="exportTable()" style="margin-left: -2px!important;">导出现分类表格</button>
+          </form>
+        </div>
+      <div>
+        <table lay-filter="check-table" id="LAY-EXPORT">
+            <thead>
+              <tr>
+                <th lay-data="{field:'name', fixed:'left', width:90}">姓名</th>
+                <th lay-data="{field:'id', width:110}">ID</th>
+                <th lay-data="{field:'org_id', width:90}">ORG-ID</th>
+                {% for header in table_header %}
+                  <th lay-data="{field:'{{ header }}', width:110}" class="table-index">{{ header }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for info in table_info %}
+              <tr>
+                {% for own_info in info[:2] %}
+                <td>{{ own_info }}</td>
+                {% endfor %}
+                {% for own_status in info[2:] %}
+                <td>{{ own_status }}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div> 
+      <br>
+      <br>
+      <br>
+    </div>
+    <a name="info">公告</a>
+    <hr class="layui-bg-black" style="opacity: 15%;">
+    <div class="info-block">
+      <p style="margin-top: 5px;">当你所属组的管理员发送一个新的公告时,它将展示在这里</p>
+      <br>
+      <div class="layui-card">
+        <div class="layui-card-header">
+          <p>花茶花茶花</p>
+        </div>
+        <div class="layui-card-body">
+          <p>Hi! We must add more functions to this program! Let's do that!</p>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">
+          <p>上杉纱织</p>
+        </div>
+        <div class="layui-card-body">
+          <p>We have to speed up development!</p>
+        </div>
+      </div>
+      <br>
+      <br>
+    </div>
+    <a name="note">笔记</a>
+    <hr class="layui-bg-black" style="opacity: 15%;">
+    <div class="note-block" style="margin-bottom: 200px;">
+      <p style="margin: 5px auto 10px;">这里的内容将和与您使用了共同组织ID的用户共享，您可以在这里做笔记或分享想法</p>
+      <blockquote class="layui-elem-quote">酸柠花茶: Do it! Just do it!</blockquote>
+      <blockquote class="layui-elem-quote">琉柳: I'm going to make the back-end program.</blockquote>
+      <blockquote class="layui-elem-quote">Flavor: 😃</blockquote>
+      <form class="layui-form upload-form layui-anim-upbit" style="margin-top: 17px;" action="">
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label layui-bg-black" style="text-align: center;">Notes</label>
+            <div class="layui-input-block">
+              <textarea name="desc" placeholder="Taking notes, or talking to your colleagues." class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <button id="upload-submit" class="layui-btn layui-bg-black" lay-submit lay-filter="formDemo">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    document.getElementById("check-nav").setAttribute('class','layui-nav-item layui-this');
+
+    
+    layui.use('form', function(){
+      var form = layui.form;
+      form.on('submit(formDemo)', function(data){
+        layer.msg(JSON.stringify(data.field));
+        return false;
+      });
+    });
+
+
+    $("#admin_category").on('change',function (){
+      obj = $("#admin_category").find("option:selected")
+      text = obj.text();
+      window.location.replace('/check/'+text);
+    });
+
+
+    $("#category").on('change',function (){
+      obj = $("#category").find("option:selected")
+      text = obj.text();
+      var pathname = window.location.pathname.split('/')
+      console.log(pathname)
+      var org_id = '{{ org_id }}'
+      console.log(org_id)
+      if (org_id !== pathname[2]) {
+        var org_id = pathname[2]
+      }
+      console.log(org_id)
+      if (pathname[2] && pathname[2] === org_id) {
+        window.location.replace('http://127.0.0.1:5000/' + pathname[1] + '/' + pathname[2] + '/' + text);
+      } else {
+        window.location.replace('http://127.0.0.1:5000/' + pathname[1] + '/' + '{{ current_user.org_id }}' + '/' + text);
+      }
+    });
+
+
+    $('#download').click(function(){
+      var pathname = window.location.pathname.split('/');
+      var org_id = pathname[2];
+      window.open('/download/' + pathname[2] + '/' + pathname[3]);
+    });
+
+
+    layui.use('table', function(){
+      var table = layui.table;
+      //转换静态表格
+  
+      table.init('check-table', {
+      height: 500 //设置高度
+      ,limit: 50 //注意：请务必确保 limit 参数（默认：10）是与你服务端限定的数据条数一致
+      //支持所有基础参数
+      ,size:'sm'
+      }); 
+    });
+
+
+    setTimeout(
+      window.onload = function() {
+        var str = "未完成";
+        for(var i in document.getElementsByClassName("layui-table-cell")){
+          var text = document.getElementsByClassName("layui-table-cell")[i].innerHTML
+          if (text.search(str) != -1) {
+            document.getElementsByClassName("layui-table-cell")[i].setAttribute('style', 'color: #ff3c22')
+          }}}    
+    ,200);
+
+    setTimeout(
+      window.onload = function() {
+        var pathname = window.location.pathname.split('/')
+        if (pathname[2]) {
+          document.getElementById("default-item1").innerText = pathname[2]
+        }
+      }    
+    ,50)
+    ;
+    setTimeout(
+      window.onload = function() {
+        var pathname = window.location.pathname.split('/')
+        console.log(decodeURI(pathname[3]))
+        if (pathname[3]) {
+          document.getElementById("default-item2").innerText = decodeURI(pathname[3])
+        }
+      }    
+    ,100);
+</script>
+<script>
+  function exportTable() {
+    // 获取头部和body
+    var data = LAY_EXCEL.tableToJson(document.getElementById('LAY-EXPORT'))
+    var exportData = []
+    exportData.push.apply(exportData, data.head)
+    exportData.push.apply(exportData, data.body)
+    LAY_EXCEL.exportExcel(exportData, '上交情况统计.xlsx', 'xlsx')
+  }
+</script>
+{% endblock %}

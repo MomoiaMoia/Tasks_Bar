@@ -1,7 +1,8 @@
-{% extends 'base.html' %}
+{% extends '/desktop/base.html' %}
 
 {% block css_style %}
-<link rel="stylesheet" href="/static/css/style/check.css">
+<link rel="stylesheet" href="/static/css/style/desktop/check.css">
+<script src="https://www.layuicdn.com/extend/excel/1.6.5/layui_exts/excel.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -41,15 +42,16 @@
               </select>
             {% endif %}
             {% if current_user.user_type == 'Manager' or current_user.user_type == 'Cross Organization'%}
-              <button id='download' type="button" class="layui-btn layui-bg-black">下载当前分类</button>
+              <button id='download' type="button" class="layui-btn layui-bg-black">下载当前分类文件</button>
             {% endif %}
+            <button id='excel' type="button" class="layui-btn layui-bg-black" onclick="exportTable()" style="margin-left: -2px!important;">导出当前分类Excel</button>
           </form>
         </div>
       <p style="float: right; margin: 3px 15px;">当前分类：{{ org_id }}, {{ now_category }}</p>
       <p style="margin-top: 5px;">ID: {{ current_user.id }}</p>
       <p>ORG-ID: {{ current_user.org_id }}</p>
       <div>
-        <table lay-filter="check-table">
+        <table lay-filter="check-table" id="LAY-EXPORT">
             <thead>
               <tr>
                 <th lay-data="{field:'name', fixed:'left', width:90}">姓名</th>
@@ -189,7 +191,37 @@
           var text = document.getElementsByClassName("layui-table-cell")[i].innerHTML
           if (text.search(str) != -1) {
             document.getElementsByClassName("layui-table-cell")[i].setAttribute('style', 'color: #ff3c22')
-          }}}
+          }}}     
     ,200);
+    
+    
+    setTimeout(
+      window.onload = function() {
+        var pathname = window.location.pathname.split('/')
+        if (pathname[2]) {
+          document.getElementById("default-item1").innerText = pathname[2]
+        }
+      }    
+    ,50)
+    ;
+    setTimeout(
+      window.onload = function() {
+        var pathname = window.location.pathname.split('/')
+        console.log(decodeURI(pathname[3]))
+        if (pathname[3]) {
+          document.getElementById("default-item2").innerText = decodeURI(pathname[3])
+        }
+      }    
+    ,100);
+</script>
+<script>
+  function exportTable() {
+    // 获取头部和body
+    var data = LAY_EXCEL.tableToJson(document.getElementById('LAY-EXPORT'))
+    var exportData = []
+    exportData.push.apply(exportData, data.head)
+    exportData.push.apply(exportData, data.body)
+    LAY_EXCEL.exportExcel(exportData, '上交情况统计.xlsx', 'xlsx')
+  }
 </script>
 {% endblock %}

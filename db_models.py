@@ -101,7 +101,7 @@ class DB_Conf():
         try:
             cursor.execute(SQL)
             dbobj.commit()
-            return "已完成, 请前往[Check]页面查看"
+            return "已完成, 请前往[检查]页面查看"
         except:
             raise UserWarning
 

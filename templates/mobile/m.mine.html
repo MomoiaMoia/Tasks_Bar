@@ -1,0 +1,106 @@
+{% extends '/mobile/m.base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style/mobile/m.mine.css">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>Tasks Bar - 我的</legend>
+            </fieldset>
+        <div class="layui-anim layui-anim-upbit">
+        <div class="right-index-personal">
+            <table class="layui-table" lay-skin="line" >
+                <colgroup>
+                    <col width=30%>
+                </colgroup>
+                <tr>
+                    <td>姓名:</td>
+                    <td>{{ current_user.user_name }}</td>
+                </tr>
+                <tr>
+                    <td>ID:</td>
+                    <td>{{ current_user.id }}</td>
+                </tr>
+                <tr>
+                    <td>类型:</td>
+                    <td>{{ current_user.user_type }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="right-index-org">
+            <table class="layui-table" lay-skin="line">
+                <colgroup>
+                    <col width=30%>
+                </colgroup>
+                <tr>
+                    <td>组织名:</td>
+                    <td>{{ current_user.org_name }}</td>
+                </tr>
+                <tr>
+                    <td>组织ID:</td>
+                    <td>{{ current_user.org_id }}</td>
+                </tr>
+                <tr>
+                    <td>组织备注:</td>
+                    <td>{{ current_user.org_notice }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="right-index-option">
+            <table class="layui-table" lay-skin="line">
+                <colgroup>
+                    <col width=30%>
+                </colgroup>
+                <!-- <tr>
+                    <td>编辑信息:</td>
+                    <td>
+                        <button type="button" class="layui-btn bg-gray">
+                            <i class="layui-icon layui-icon-edit"></i>
+                        </button>
+                        // Contact to 1132756648@qq.com
+                    </td>
+                </tr> -->
+                {% if current_user.user_type == 'Manager' %}
+                <tr>
+                    <td>发布任务:</td>
+                    <td>
+                        <button onclick="window.open('/new_task');" type="button" class="layui-btn bg-gray">
+                            <i class="layui-icon layui-icon-list"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>登出账户:</td>
+                    <td>
+                        <button onclick="window.open('/logout');" type="button" class="layui-btn bg-gray">
+                            <i class="layui-icon layui-icon-logout"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>重置密码:</td>
+                    <td>
+                        <button onclick="window.open('/reset');" type="button" class="layui-btn bg-gray">
+                            <i class="layui-icon layui-icon-key"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+{% for message in get_flashed_messages() %}
+    <div class="flash layui-elem-quote" style="margin: 480px 300px;">{{ message }}</div>
+{% endfor %}
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    document.getElementById("mine-nav").setAttribute('class','layui-nav-item layui-this')
+</script>
+{% endblock %}

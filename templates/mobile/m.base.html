@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="HandheldFriendly" content="true">
+  <title>Tasks Bar</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="/static/css/layui.css">
+  <link rel="stylesheet" href="/static/css/style/mobile/m.base.css">
+  <link rel="stylesheet" href="/static/css/normalize.css">
+  <script src="/static/js/jquery.min.js"></script>
+{% block css_style %}{% endblock %}
+
+</head>
+<body>
+  <!-- 导航栏 -->
+<ul class="layui-nav" lay-filter="">
+  <div class="nav-bar">
+    <li class="layui-nav-item" id="upload-nav"><a href="/upload" style="font-weight:900;">上传</a></li>
+    <li class="layui-nav-item" id="check-nav"><a href="/check">检查</a></li>
+    <li class="layui-nav-item" id="index-nav"><a href="/index">主页</a></li>
+    <li class="layui-nav-item" id="mine-nav"><a href="/mine">我的</a></li>
+    <li class="layui-nav-item" id="doc-nav"><a href="/doc">文档</a></li>
+  </div>
+</ul>
+<img class="header" src="/static/images/bar_thin.jpg">
+{% block content%}{% endblock %}
+
+
+{% block footer %}
+<!-- 页脚 -->
+<div class="footer-index">
+  <div class="footer-bg">
+      <img src="/static/images/task_bar_m.png" width="5%" height="auto" style="margin: 5px 3%;" align="left">
+      <div style="padding: 6px;">
+        <span class="layui-breadcrumb">
+          <a href="#">&copy; 2020 花茶花茶花</a>
+          <a href="https://github.com/UesugiSaori" target="_new">Github</a>
+          <a href="http://beian.miit.gov.cn" style="color: #eee;">豫ICP备2020034424号-1</a>
+          <a href=""><img src="/static/images/beian.png" style="color: #eee; width:15px"></a>
+        </span>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+<script src="/static/layui.js"></script>   
+<script>
+  //注意：导航 依赖 element 模块，否则无法进行功能性操作
+  layui.use('element', function(){
+    var element = layui.element;
+    
+    //…
+  });
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

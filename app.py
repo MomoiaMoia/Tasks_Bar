@@ -1,4 +1,4 @@
-from flask import Flask,render_template,redirect,flash,make_response
+from flask import Flask,render_template,redirect,flash,make_response,request
 from flask.helpers import send_from_directory
 from form import LoginForm, NewCategoryForm, NewTaskForm, ResetPasswdForm ,UploadForm
 from flask_login import login_user, login_required
@@ -46,15 +46,20 @@ login_manager.login_view = 'login_page'
 login_manager.init_app(app)
 # 实例密码
 app.secret_key="secret string"
+_request = request
 
-
+def judgement(point):
+    if "mobile" in str(_request.user_agent).lower():
+        return f'/mobile/m.{point}.html'
+    else:
+        return f'/desktop/{point}.html'
 
 
 #主页
 @app.route('/')
 @app.route('/index')
 def index_page():
-    return render_template('index.html')
+    return render_template(judgement('index'))
 
 
 #上传页面
@@ -81,15 +86,15 @@ def upload_page():
         if int(select_tasks) in list(task_path_list.keys()):
             date_category = DB.query_tasks_date_category(db_cursor,select_tasks)[0]
             print(date_category)
-            DB.update_tasks_upload_info(db_cursor,database,current_user.org_id + "_" + date_category[1].lower(),date_category[0],current_user.id)
+            msg = DB.update_tasks_upload_info(db_cursor,database,current_user.org_id + "_" + date_category[1].lower(),date_category[0],current_user.id)
             file_path = task_path_list[int(select_tasks)] + f"\{str(current_user.id)}_{str(current_user.user_name)}_{str(uuid.uuid4().hex)}_{str(file.filename)}" 
             file.save(file_path)
-            flash('Upload success')
+            flash(msg)
             #重定向
             return redirect('/upload')
         #重定向
         return redirect('/mine')
-    return render_template("upload.html", form=form, task_list=task_list)
+    return render_template(judgement('upload'), form=form, task_list=task_list)
 
 
  
@@ -111,9 +116,9 @@ def check_page(org_id='',table_category=''):
             table_info = [list(info) for info in table_info]
             for info in table_info:
                 info[1],info[2] = info[2],info[1]
-            return render_template("check.html",table_header=table_header,table_info=table_info,org_id=org_id,category=category_list,now_category=table_category)
+            return render_template(judgement('check'),table_header=table_header,table_info=table_info,org_id=org_id,category=category_list,now_category=table_category)
         except:
-            return render_template("check.html",category=category_list)
+            return render_template(judgement('check'),category=category_list)
     else:
         """
         待优化
@@ -128,10 +133,10 @@ def check_page(org_id='',table_category=''):
                 table_info = [list(info) for info in table_info]
                 for info in table_info:
                     info[1],info[2] = info[2],info[1]
-                return render_template("check.html",table_header=table_header,table_info=table_info,org_id=org_id,org_category=org_id_temp,category=category_list,now_category=table_category)
+                return render_template(judgement('check'),table_header=table_header,table_info=table_info,org_id=org_id,org_category=org_id_temp,category=category_list,now_category=table_category)
             except:
-                return render_template("check.html",org_id=org_id,org_category=org_id_temp,category=category_list)
-        return render_template("check.html",org_category=org_id_temp)
+                return render_template(judgement('check'),org_id=org_id,org_category=org_id_temp,category=category_list)
+        return render_template(judgement('check'),org_category=org_id_temp)
 
 
 #下载界面
@@ -154,13 +159,13 @@ def download_file(org_id='',category=''):
 @app.route('/mine')
 @login_required
 def mine_page():
-    return render_template("mine.html")
+    return render_template(judgement('mine'))
 
 
 #帮助文档
 @app.route('/doc')
 def doc_page():
-    return render_template("doc.html")
+    return render_template(judgement('doc'))
 
 
 #用户引导，请勿修改
@@ -194,7 +199,7 @@ def login_page():
         else:
             flash('Invalid ID or password. Try again.')
             return redirect('/login')
-    return render_template("login.html", form=form)
+    return render_template(judgement('login'), form=form)
 
 
 @app.route('/new_task', methods=['GET','POST'])
@@ -233,7 +238,7 @@ def new_task():
     else:
         flash('Not authorized')
         return redirect('/mine')
-    return render_template("new_task.html", form=form)
+    return render_template(judgement('new_task'), form=form)
 
 
 #创建分类
@@ -256,7 +261,7 @@ def create_category_page():
                 print(table_name)
                 DB.create_category_tb(db_cursor,database,current_user.org_id,table_name)
         return redirect('/new_task')
-    return render_template("category.html", form=form)
+    return render_template(judgement('category'), form=form)
 
 
 #重置密码界面
@@ -285,7 +290,7 @@ def reset_passwd_page():
         else:
             flash('Incorrect old password. Try again.')
             return redirect('/reset')
-    return render_template("reset.html", form=form)
+    return render_template(judgement('reset'), form=form)
 
 
 #登出

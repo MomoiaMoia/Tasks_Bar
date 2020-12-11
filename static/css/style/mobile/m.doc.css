@@ -1,0 +1,11 @@
+/* doc_page */
+.layui-elem-field legend {
+    padding: 0 10px;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.layui-timeline-axis {
+    z-index: 0;
+    color: #393D49;
+}

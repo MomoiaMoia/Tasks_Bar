@@ -1,0 +1,46 @@
+{% extends '/mobile/m.base.html' %}
+
+{% block css_style %}
+<link rel="stylesheet" href="/static/css/style//mobile/m.index.css">
+{% endblock %}
+
+{% block content %}
+<img class="header" src="/static/images/bar.jpg">
+<div class="title" style="font-family: 'Bahnschrift SemiBold';">
+    <h1>Tasks Bar</h1>
+    <h2>A new way to collect tasks</h2>
+</div>
+<div class="layui-anim layui-anim-upbit index-msg">
+    <div class="layui-card">
+        <div class="layui-card-header"><b>项目简介</b></div>
+        <div class="layui-card-body">
+            <p>1. 这是一种新的收集任务文件的方式！</p> 
+            <p>2. 如果您是管理员, 您可以向您组内的成员发布新的任务(需要使用您的组织ID).</p>
+            <p>3. 如果您是组织成员, 您可以在您的个人信息中填入组织ID(暂时不能), 然后您就可以看到组织内的任务以及您需要上传的文件.</p>
+        </div>
+        <hr class="layui-bg-black" style="opacity: 15%;">
+        <div class="layui-card-header"><b>快速开始</b></div>
+        <div class="layui-card-body">
+            <p>1. 请联系1132756648@qq.com, 来获取您的个人ID或组织ID或两者.</p>
+            <p>2. 发送新任务, 或等待您的管理员向您发送任务.</p>
+            <p>3. 前往[上传]页上传任务所需文件.</p>
+            <p>4. 当您完成了步骤1, 2, 3, 您可以前往 [检查] 界面进行复查.</p>
+            <p>5. Enjoy :)</p>
+        </div>
+        <hr class="layui-bg-black" style="opacity: 15%;">
+        <div class="layui-card-header"><b>获取支持</b></div>
+        <div class="layui-card-body">
+            <p>Development by 花茶花茶花</p>
+            <a href="mailto:1132756648@qq.com?subject=Feedback">联系方式: 1132756648@qq.com</a>
+            <p>文档: <a href="/doc">[点这!]</a></p>
+            <p>项目仍在开发中...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById("index-nav").setAttribute('class', 'layui-nav-item layui-this')
+</script>
+{% endblock %}

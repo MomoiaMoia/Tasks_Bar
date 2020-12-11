@@ -1,0 +1,79 @@
+/* check_page */
+.check-index span[lay-separator] {
+    margin: 0px 4px;
+    color: #000000;
+}
+
+
+.check-index a {
+    font-size: 14px;
+    color: #393D49!important;
+}
+
+.layui-breadcrumb>* {
+    font-size: 14px;
+}
+
+.main-body {
+    margin: 20px auto;
+}
+
+.main-body a {
+    font-size: 23px;
+}
+
+.main-body p {
+    font-size: 18px;
+}
+
+.layui-btn {
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 1.5%;
+}
+
+.layui-input-block {
+    margin-left: 0px;
+    min-height: 36px;
+}
+
+.layui-card-header p {
+    font-size: 16px;
+}
+
+.layui-card-header {
+    line-height: 47px;
+}
+
+.layui-elem-quote {
+    border-left: 5px solid #393D49;
+}
+
+blockquote {
+    font-size: 15px;
+}
+
+.layui-table thead tr {
+    height: 35px;
+}
+
+.category {
+    margin: 2% auto 1.5%;
+}
+
+#admin_category {
+    width: 25%;
+    min-height: 30px;
+}
+
+#category {
+    width: 25%;
+    min-height: 30px;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0.3px;
+    overflow: visible;
+    margin: 2% 0px;
+}

@@ -1,0 +1,79 @@
+/* index_page */
+.header {
+    position: absolute;
+    text-align: center;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: -25%;
+    z-index: -1;
+}
+
+.title {
+    text-align: center;
+}
+
+.layui-nav {
+    padding: 0 0px;
+    background-color: rgba(255,255,255,0);
+    color: #fff;
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+    background-color: #ffffff;
+}
+
+h1 {
+    margin: 11.5% auto 1%;
+    font-size: 45px;
+    color: #f0f0f0;
+}
+
+h2 {
+    margin-bottom: 12.5%;
+    font-size: 20px;
+    color: #f0f0f0;
+}
+
+b {
+    font-size: 17px;
+}
+
+.index-msg {
+    margin-top: 0%;
+}
+
+.index-msg > div * {
+    color: #393D49;
+    text-align: left;
+    position: relative;
+    font-size: 14px;
+}
+
+.layui-card-header {
+    height: 40px;
+    line-height: 42px;
+    padding: 0 15px;
+}
+
+.layui-card-body {
+    position: relative;
+    padding: 5px 15px;
+    line-height: 23px;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0.3px;
+    overflow: visible;
+    margin: 1% 0px;
+}
+
+.index-nav {
+    height: 320px;
+    margin: 0 auto;
+}
+
+.layui-card:last-child {
+    margin-bottom: 10%;
+    width: 100%;
+}

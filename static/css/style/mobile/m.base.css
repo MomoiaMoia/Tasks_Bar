@@ -1,0 +1,131 @@
+/* base_page */
+html {
+    background-color:#F0F0F0;
+}
+
+body {
+    min-height: 100vh;
+    position: relative;
+    font-family: 'Bahnschrift Light';
+}
+
+.main {
+    margin: 3% auto 10%;
+}
+
+.layui-elem-field legend {
+    padding: 0 10px;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.layui-field-title {
+    margin: 2% auto 0px;
+    border-width: 1px 0 0;
+}
+
+
+.header {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    max-height: 100%;
+    margin-top: -12.5%;
+    z-index: -1;
+}
+
+.layui-nav {
+    padding: 0 0px;
+    background-color: rgba(255,255,255,0);
+    color: #fff;
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+    background-color: #ffffff;
+}
+
+.nav-bar {
+    text-align: center;
+}
+
+.nav-bar * {
+    font-size: 13px;
+    line-height: 45px;
+}
+
+.layui-nav .layui-nav-item a {
+    color: rgba(255,255,255,.9);
+}
+
+.footer-index {
+    position: absolute;
+    text-align: left;
+    margin: 0px auto;
+    width: 100%;
+    box-shadow: 0px -1px 100px -10px rgb(123 123 123);
+}
+
+.footer-bg {
+    height:30px;
+    background:#3E303D;
+}
+
+.m-logo {
+    background: url(/static/images/task_bar_m.png) no-repeat;
+}
+
+
+.layui-breadcrumb a {
+    font-size: 12px;
+    color: #F0F0F0!important;
+}
+
+.layui-breadcrumb span[lay-separator] {
+    margin: 0px 4px;
+    color: #F0F0F0;
+}
+
+.layui-breadcrumb>* {
+    font-size: 10px;
+}
+
+small {
+    color: #ff0000;
+    font-size: 13px;
+    margin-left: -100px;
+}
+
+.flash {
+    position: absolute;
+    font-size: 15px;
+    margin: 300px 593px;
+    min-width: 85%;
+    line-height: 7px;
+}
+
+.layui-elem-quote {
+    border-left: 5px solid #393D49;
+    background-color: #ffffff;
+}
+
+
+.layui-col-sm3 {
+    margin-top: 2%;
+    width: 100%;
+}
+
+.layui-col-xs3 {
+    text-align: center;
+    margin-top: 2%;
+    width: 20%;
+}
+
+.bg-bar {
+    background: url(/static/images/bg_bar.jpg);
+    color: #ffffff;
+}
+
+.bg-gray {
+    background: #3E303D;
+    color: #ffffff;
+}
