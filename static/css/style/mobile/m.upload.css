@@ -47,3 +47,7 @@ hr {
     overflow: visible;
     margin: 1% 0px;
 }
+
+.layui-form-select .layui-edge {
+    margin-top: 4%;
+}

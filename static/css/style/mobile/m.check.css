@@ -77,3 +77,12 @@ hr {
     overflow: visible;
     margin: 2% 0px;
 }
+
+.layui-badge-rim {
+    float: right;
+}
+
+.layui-form-label {
+    padding: 9px 0;
+    width: 100%;
+}

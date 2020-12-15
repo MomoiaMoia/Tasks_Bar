@@ -3,8 +3,18 @@ html {
     background-color: rgb(245, 245, 245);
 }
 
+@font-face {
+    font-family: "Header Font";
+    src: url(/static/font/bahnschrift.ttf);
+}
+
+@font-face {
+    font-family: "Body Font";
+    src: url(/static/font/calibril.ttf);
+}
+
 body {
-    font-family: Bahnschrift Light;
+    font-family: 'Body Font';
     zoom: 1.1;
 }
 
@@ -50,7 +60,7 @@ small {
 .flash {
     position: absolute;
     font-size: 15px;
-    margin: 300px 593px;
+    margin: 0px 34.5%;
     min-width: 470px;
     line-height: 7px;
 }

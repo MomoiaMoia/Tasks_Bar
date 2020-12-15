@@ -82,10 +82,10 @@ def upload_page():
         file = form.upload_file.data
         select_tasks = form.select_task.data
         msg_task = form.msg_task.data        #暂时用不到这个
+        flash(DB.insert_check_chat_msg(db_cursor,database,int(current_user.id),current_user.user_name,current_user.org_id,"note",msg_task,datetime.datetime.now()))
         #构造文件路径和存储文件
         if int(select_tasks) in list(task_path_list.keys()):
             date_category = DB.query_tasks_date_category(db_cursor,select_tasks)[0]
-            print(date_category)
             msg = DB.update_tasks_upload_info(db_cursor,database,current_user.org_id + "_" + date_category[1].lower(),date_category[0],current_user.id)
             file_path = task_path_list[int(select_tasks)] + f"\{str(current_user.id)}_{str(current_user.user_name)}_{str(uuid.uuid4().hex)}_{str(file.filename)}" 
             file.save(file_path)
@@ -104,6 +104,12 @@ def upload_page():
 @app.route('/check/<org_id>/<table_category>')
 @login_required
 def check_page(org_id='',table_category=''):
+    if request.args.get('msg'):
+        flash(DB.insert_check_chat_msg(db_cursor,database,int(current_user.id),current_user.user_name,current_user.org_id,"note",request.args.get('msg'),datetime.datetime.now()))
+    else:
+        pass
+    notice_msg = DB.query_check_chat_msg(db_cursor,current_user.org_id,'notice')
+    note_msg = DB.query_check_chat_msg(db_cursor,current_user.org_id,'note')
     category_list = DB.query_category(db_cursor,current_user.org_id)
     if len(category_list) >= 1:
         try:
@@ -116,9 +122,9 @@ def check_page(org_id='',table_category=''):
             table_info = [list(info) for info in table_info]
             for info in table_info:
                 info[1],info[2] = info[2],info[1]
-            return render_template(judgement('check'),table_header=table_header,table_info=table_info,org_id=org_id,category=category_list,now_category=table_category)
+            return render_template(judgement('check'),table_header=table_header,table_info=table_info,org_id=org_id,category=category_list,now_category=table_category,note_msg=note_msg,notice_msg=notice_msg)
         except:
-            return render_template(judgement('check'),category=category_list)
+            return render_template(judgement('check'),category=category_list,note_msg=note_msg,notice_msg=notice_msg)
     else:
         """
         待优化
@@ -133,9 +139,9 @@ def check_page(org_id='',table_category=''):
                 table_info = [list(info) for info in table_info]
                 for info in table_info:
                     info[1],info[2] = info[2],info[1]
-                return render_template(judgement('check'),table_header=table_header,table_info=table_info,org_id=org_id,org_category=org_id_temp,category=category_list,now_category=table_category)
+                return render_template(judgement('check'),table_header=table_header,table_info=table_info,org_id=org_id,org_category=org_id_temp,category=category_list,now_category=table_category,note_msg=note_msg,notice_msg=notice_msg)
             except:
-                return render_template(judgement('check'),org_id=org_id,org_category=org_id_temp,category=category_list)
+                return render_template(judgement('check'),org_id=org_id,org_category=org_id_temp,category=category_list,notice_msg=notice_msg)
         return render_template(judgement('check'),org_category=org_id_temp)
 
 
@@ -208,7 +214,6 @@ def new_task():
     #构造用户
     user = DB.user_info(db_cursor,current_user.id)
     category_list = DB.query_category(db_cursor,current_user.org_id)
-    print(category_list)
     #实例化新任务表单
     form = NewTaskForm(category_list=category_list)
     #管理员认证
@@ -228,6 +233,11 @@ def new_task():
             path = (fr"{str(data_file_path)}\{str(current_user.org_id)}\{str(category).lower()}\{str(date).replace(' ','_').replace(':','_')}_{str(title)}_{str(current_user.org_name)}_{str(uuid.uuid4().hex)}")
             os.makedirs(path)
             #数据库写入
+            if notes:
+                #note录入
+                DB.insert_check_chat_msg(db_cursor,database,int(current_user.id),current_user.user_name,current_user.org_id,"notice",notes,datetime.datetime.now())
+            else:
+                pass
             #复查表录入
             DB.insert_task_check_table_userinfo(db_cursor,database,str(current_user.org_id)+'_'+str(category).lower(),str(date),"未完成")
             #信息录入
@@ -248,17 +258,13 @@ def create_category_page():
     #实例化表单
     form = NewCategoryForm()
     category_temp = form.new_category.data
-    print(category_temp)
     if form.validate_on_submit():
         category = category_temp.split(',')
-        print(category)
         if (',' in list(category_temp) or '，' in list(category_temp)) and len(category) < 2 :
             category = category_temp.split('，')
-            print(current_user.org_id,category)
         for item in category:
             if DB.insert_category_tb(db_cursor,database,current_user.org_id,item.lower()):
                 table_name = str(current_user.org_id) + '_' + str(item.lower())
-                print(table_name)
                 DB.create_category_tb(db_cursor,database,current_user.org_id,table_name)
         return redirect('/new_task')
     return render_template(judgement('category'), form=form)

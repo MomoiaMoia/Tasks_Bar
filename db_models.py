@@ -169,3 +169,22 @@ class DB_Conf():
             return table_header[1:],table_info
         except:
             pass
+
+    def insert_check_chat_msg(self,cursor,dbobj,user_id,user_name,org_id,msg_category,check_msg,datetime):
+        SQL = f"INSERT INTO user_msg(`user_id`,`user_name`,`org_id`,`msg_category`,`msg_info`,`msg_date`) VALUES({user_id},'{user_name}','{org_id}','{msg_category}','{check_msg}','{datetime}')"
+        try:
+            cursor.execute(SQL)
+            dbobj.commit()
+            return "🍻"
+        except:
+            dbobj.rollback()
+            raise UserWarning
+
+    def query_check_chat_msg(self,cursor,org_id,msg_category):
+        SQL = "SELECT * FROM user_msg WHERE `org_id`=%s and `msg_category`=%s"
+        try:
+            cursor.execute(SQL,(org_id,msg_category))
+            msg = [(msg[2],msg[-2],msg[-1]) for msg in cursor.fetchall()]
+            return msg
+        except:
+            return None

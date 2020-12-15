@@ -18,7 +18,7 @@
   {% for message in get_flashed_messages() %}
     <div class="flash layui-elem-quote" style="margin-top: 10px;">{{ message }}</div>
   {% endfor %}
-  <div class="main-body layui-anim layui-anim-fadein">
+  <div class="main-body layui-anim layui-anim-upbit">
     <a name="check">审查</a>
     <hr class="layui-bg-black" style="opacity: 15%;">
     <p>ID: {{ current_user.id }}&nbsp;ORG-ID: {{ current_user.org_id }}</p>
@@ -46,7 +46,7 @@
             {% if current_user.user_type == 'Manager' or current_user.user_type == 'Cross Organization'%}
               <button id='download' type="button" class="layui-btn bg-gray">下载现分类文件</button>
             {% endif %}
-            <button id='excel' type="button" class="layui-btn bg-gray" onclick="exportTable()" style="margin-left: -2px!important;">导出现分类表格</button>
+            <!-- <button id='excel' type="button" class="layui-btn bg-gray" onclick="exportTable()" style="margin-left: -2px!important;">导出现分类表格</button> -->
           </form>
         </div>
       <div>
@@ -80,24 +80,25 @@
       <br>
     </div>
     <a name="info">公告</a>
-    <hr class="layui-bg-black" style="opacity: 15%;">
     <div class="info-block">
       <p style="margin-top: 5px;">当你所属组的管理员发送一个新的公告时,它将展示在这里</p>
       <br>
+      {% for msg in notice_msg %}
+        <div class="layui-card">
+          <div class="layui-card-header">
+            <p>{{ msg[0] }}</p>
+          </div>
+          <div class="layui-card-body">
+            <p>{{ msg[1] }}<span class="layui-badge-rim" style="font-size: 15px;">{{ msg[2] }}</span></p>
+          </div>
+        </div>
+      {% endfor %}
       <div class="layui-card">
         <div class="layui-card-header">
-          <p>花茶花茶花</p>
+          <p>酸柠花茶</p>
         </div>
         <div class="layui-card-body">
-          <p>Hi! We must add more functions to this program! Let's do that!</p>
-        </div>
-      </div>
-      <div class="layui-card">
-        <div class="layui-card-header">
-          <p>上杉纱织</p>
-        </div>
-        <div class="layui-card-body">
-          <p>We have to speed up development!</p>
+          <p style="font-size: 15px;"><span class="layui-badge">广播</span>此消息为系统广播，感谢您的使用，请勿发表不良言论。</p>
         </div>
       </div>
       <br>
@@ -107,17 +108,18 @@
     <hr class="layui-bg-black" style="opacity: 15%;">
     <div class="note-block" style="margin-bottom: 200px;">
       <p style="margin: 5px auto 10px;">这里的内容将和与您使用了共同组织ID的用户共享，您可以在这里做笔记或分享想法</p>
-      <blockquote class="layui-elem-quote">酸柠花茶: Do it! Just do it!</blockquote>
-      <blockquote class="layui-elem-quote">琉柳: I'm going to make the back-end program.</blockquote>
-      <blockquote class="layui-elem-quote">Flavor: 😃</blockquote>
-      <form class="layui-form upload-form layui-anim-upbit" style="margin-top: 17px;" action="">
+      {% for msg in note_msg %}
+          <blockquote class="layui-elem-quote">{{ msg[0] }}: {{ msg[1] }}<span class="layui-badge-rim">{{ msg[2] }}</span></blockquote>
+      {% endfor %}
+      <blockquote class="layui-elem-quote">酸柠花茶: <span class="layui-badge">广播</span>此消息为系统广播，感谢您的使用，请勿发表不良言论。</blockquote>
+      <form class="layui-form upload-form" style="margin-top: 17px;" action="">
         <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label layui-bg-black" style="text-align: center;">Notes</label>
+          <label class="layui-form-label bg-gray" style="text-align: center;">一言</label>
             <div class="layui-input-block">
-              <textarea name="desc" placeholder="Taking notes, or talking to your colleagues." class="layui-textarea"></textarea>
+              <textarea name="msg" placeholder="写点什么！" class="layui-textarea"></textarea>
             </div>
         </div>
-        <button id="upload-submit" class="layui-btn layui-bg-black" lay-submit lay-filter="formDemo">Submit</button>
+        <button id="upload-submit" class="layui-btn bg-gray" lay-submit lay-filter="formDemo" style="width: 100%;">发送</button>
       </form>
     </div>
   </div>
@@ -133,7 +135,8 @@
     layui.use('form', function(){
       var form = layui.form;
       form.on('submit(formDemo)', function(data){
-        layer.msg(JSON.stringify(data.field));
+        // layer.msg(JSON.stringify(data.field));
+        window.location.replace(JSON.stringify(data.field).get('msg'));
         return false;
       });
     });
@@ -158,9 +161,9 @@
       }
       console.log(org_id)
       if (pathname[2] && pathname[2] === org_id) {
-        window.location.replace('http://127.0.0.1:5000/' + pathname[1] + '/' + pathname[2] + '/' + text);
+        window.location.replace('http://www.tasks-bar.com/' + pathname[1] + '/' + pathname[2] + '/' + text);
       } else {
-        window.location.replace('http://127.0.0.1:5000/' + pathname[1] + '/' + '{{ current_user.org_id }}' + '/' + text);
+        window.location.replace('http://www.tasks-bar.com/' + pathname[1] + '/' + '{{ current_user.org_id }}' + '/' + text);
       }
     });
 

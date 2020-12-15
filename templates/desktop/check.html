@@ -35,7 +35,7 @@
             {% endif %}
             {% if category is defined() %}
               <select id="category" required>
-                <option id="default-item" value="0">请选择</option>
+                <option id="default-item1" value="0">请选择</option>
                 {% for k,v in category.items() %}
                 <option id='category-item' value="{{ k }}">{{ v }}</option>
                 {% endfor %}
@@ -47,7 +47,7 @@
             <button id='excel' type="button" class="layui-btn layui-bg-black" onclick="exportTable()" style="margin-left: -2px!important;">导出当前分类Excel</button>
           </form>
         </div>
-      <p style="float: right; margin: 3px 15px;">当前分类：{{ org_id }}, {{ now_category }}</p>
+      <p style="float: right; margin: 3px 15px;">当前分类：{{ org_id }}&nbsp;&nbsp;{{ now_category }}</p>
       <p style="margin-top: 5px;">ID: {{ current_user.id }}</p>
       <p>ORG-ID: {{ current_user.org_id }}</p>
       <div>
@@ -84,20 +84,22 @@
     <div class="info-block">
       <p style="margin-top: 5px;">当你所属组的管理员发送一个新的公告时,它将展示在这里</p>
       <br>
+      {% for msg in notice_msg %}
+        <div class="layui-card">
+          <div class="layui-card-header">
+            <p>{{ msg[0] }}</p>
+          </div>
+          <div class="layui-card-body">
+            <p>{{ msg[1] }}<span class="layui-badge-rim" style="font-size: 15px;">{{ msg[2] }}</span></p>
+          </div>
+        </div>
+      {% endfor %}
       <div class="layui-card">
         <div class="layui-card-header">
-          <p>花茶花茶花</p>
+          <p>酸柠花茶</p>
         </div>
         <div class="layui-card-body">
-          <p>Hi! We must add more functions to this program! Let's do that!</p>
-        </div>
-      </div>
-      <div class="layui-card">
-        <div class="layui-card-header">
-          <p>上杉纱织</p>
-        </div>
-        <div class="layui-card-body">
-          <p>We have to speed up development!</p>
+          <p style="font-size: 15px;"><span class="layui-badge">广播</span>此消息为系统广播，感谢您的使用，请勿发表不良言论。</p>
         </div>
       </div>
       <br>
@@ -106,17 +108,18 @@
     <a name="note">笔记</a>
     <div class="note-block" style="margin-bottom: 200px;">
       <p style="margin: 5px auto 10px;">这里的内容将和与您使用了共同组织ID的用户共享，您可以在这里做笔记或分享想法</p>
-      <blockquote class="layui-elem-quote">酸柠花茶: Do it! Just do it!</blockquote>
-      <blockquote class="layui-elem-quote">琉柳: I'm going to make the back-end program.</blockquote>
-      <blockquote class="layui-elem-quote">Flavor: 😃</blockquote>
+      {% for msg in note_msg %}
+        <blockquote class="layui-elem-quote">{{ msg[0] }}: {{ msg[1] }}<span class="layui-badge-rim">{{ msg[2] }}</span></blockquote>
+      {% endfor %}
+      <blockquote class="layui-elem-quote">酸柠花茶: <span class="layui-badge">广播</span>此消息为系统广播，感谢您的使用，请勿发表不良言论。</blockquote>
       <form class="layui-form upload-form layui-anim-upbit" style="margin-top: 17px;" action="">
         <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label layui-bg-black" style="text-align: center;">Notes</label>
+          <label class="layui-form-label layui-bg-black" style="text-align: center;">一言</label>
             <div class="layui-input-block">
-              <textarea name="desc" placeholder="Taking notes, or talking to your colleagues." class="layui-textarea"></textarea>
+              <textarea name="msg" placeholder="写点什么!" class="layui-textarea"></textarea>
             </div>
         </div>
-        <button id="upload-submit" class="layui-btn layui-bg-black" lay-submit lay-filter="formDemo">Submit</button>
+        <button id="upload-submit" class="layui-btn layui-bg-black" lay-submit lay-filter="formDemo">发送</button>
       </form>
     </div>
   </div>
@@ -133,7 +136,8 @@
     layui.use('form', function(){
       var form = layui.form;
       form.on('submit(formDemo)', function(data){
-        layer.msg(JSON.stringify(data.field));
+        // layer.msg(JSON.stringify(data.field));
+        window.location.replace(JSON.stringify(data.field).get('msg'));
         return false;
       });
     });
@@ -194,22 +198,13 @@
           }}}     
     ,200);
     
-    
+
     setTimeout(
       window.onload = function() {
         var pathname = window.location.pathname.split('/')
-        if (pathname[2]) {
-          document.getElementById("default-item1").innerText = pathname[2]
-        }
-      }    
-    ,50)
-    ;
-    setTimeout(
-      window.onload = function() {
-        var pathname = window.location.pathname.split('/')
-        console.log(decodeURI(pathname[3]))
+        var category = decodeURI(pathname[3])
         if (pathname[3]) {
-          document.getElementById("default-item2").innerText = decodeURI(pathname[3])
+          document.getElementById("default-item1").innerText = decodeURI(pathname[3])
         }
       }    
     ,100);
